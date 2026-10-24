@@ -79,7 +79,7 @@ const copy = {
     navContact: "Contato",
     navLicense: "Licença",
     footerNote: "Música independente, compartilhada com cuidado.",
-    intro: "Uma coleção viva de faixas, artistas e sons presentes nos mixes. Escolha uma capa para conhecer uma faixa.",
+    intro: "Uma coleção viva de faixas, artistas e sons presentes no DJ set 'Underletrônico'. Escolha uma capa para conhecer uma faixa.",
     tracks: "faixas",
     back: "← Todas as faixas",
     artist: "Artista",
