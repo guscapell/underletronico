@@ -4,11 +4,13 @@ const tracks = [
     id: "dj-alyx-esta-vivo",
     title: "DJ ALYX ESTÁ VIVO ELE ESTÁ VIVO (E DETEM O PODER aparentemente)",
     artist: "DJ ALYX",
+    artistUrl: "https://soundcloud.com/xx_alyx_xx",
     artistBio: {
       en: "DJ ALYX is a Brazilian DJ and producer based in Londrina, Paraná.",
       pt: "DJ ALYX é um DJ e produtor brasileiro que reside em Londrina, Paraná."
     },
     collective: "NAÇÃOREBOLATION69",
+    collectiveUrl: "https://soundcloud.com/rebolation",
     album: "",
     license: "CC BY-NC-SA 3.0",
     licenseUrl: "https://creativecommons.org/licenses/by-nc-sa/3.0/",
@@ -23,12 +25,14 @@ const tracks = [
     id: "synova-heal-again",
     title: "Heal Again",
     artist: "Synova",
+    artistUrl: "https://synovamusic.bandcamp.com/music",
     artistBio: {
       en: "Synova is an electronic music artist from Los Angeles. The artist describes the project as DIY-EDM.",
       pt: "Synova é um artista de música eletrônica de Los Angeles. O projeto é descrito pelo artista como DIY-EDM ('EDM-faça você mesmo')."
     },
     collective: "",
     album: "D.I.Y.E.D.M",
+    albumUrl: "https://synovamusic.bandcamp.com/album/d-i-y-e-d-m",
     license: "CC BY 4.0",
     licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
     url: "https://synovamusic.bandcamp.com/track/heal-again-3",
@@ -47,11 +51,11 @@ const copy = {
     navGallery: "Gallery",
     navAbout: "About",
     navContact: "Contact",
+    navLicense: "License",
     footerNote: "Independent music, shared with care.",
     intro: "A living collection of tracks, artists and sounds from the mix. Select a cover to explore a track.",
     tracks: "tracks",
     back: "← All tracks",
-    listen: "Open track page ↗",
     artist: "Artist",
     album: "Release / album",
     collective: "Collective",
@@ -62,6 +66,8 @@ const copy = {
     contactText: "For questions, corrections, or music suggestions, contact boinguxa on Instagram or SoundCloud.",
     instagram: "Instagram",
     soundcloud: "SoundCloud",
+    licenseText: "The Underletrônico website and mix by boinguxa are licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license. You may share and adapt them noncommercially with attribution, and adaptations must use the same license.",
+    licenseLink: "Read the CC BY-NC-SA 4.0 license ↗",
     notFound: "That track could not be found.",
     home: "Browse the track archive"
   },
@@ -71,11 +77,11 @@ const copy = {
     navGallery: "Galeria",
     navAbout: "Sobre",
     navContact: "Contato",
+    navLicense: "Licença",
     footerNote: "Música independente, compartilhada com cuidado.",
     intro: "Uma coleção viva de faixas, artistas e sons presentes nos mixes. Escolha uma capa para conhecer uma faixa.",
     tracks: "faixas",
     back: "← Todas as faixas",
-    listen: "Abrir página da faixa ↗",
     artist: "Artista",
     album: "Lançamento / álbum",
     collective: "Coletivo",
@@ -86,6 +92,8 @@ const copy = {
     contactText: "Para dúvidas, correções ou sugestões musicais, entre em contato com boinguxa pelo Instagram ou pelo SoundCloud.",
     instagram: "Instagram",
     soundcloud: "SoundCloud",
+    licenseText: "O site e o mix Underletrônico de boinguxa estão licenciados sob a licença Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional. Você pode compartilhar e adaptar para fins não comerciais com atribuição, e as adaptações devem usar a mesma licença.",
+    licenseLink: "Leia a licença CC BY-NC-SA 4.0 ↗",
     notFound: "Não foi possível encontrar essa faixa.",
     home: "Explorar o arquivo de faixas"
   }
@@ -102,13 +110,13 @@ document.querySelectorAll(".language-switch a").forEach(link => {
 
 const app = document.querySelector("#app");
 document.querySelectorAll(".main-nav a").forEach((link, index) => {
-  link.textContent = [text.navGallery, text.navAbout, text.navContact][index];
+  link.textContent = [text.navGallery, text.navAbout, text.navContact, text.navLicense][index];
 });
 document.querySelector(".site-footer span:last-child").textContent = text.footerNote;
 const trackId = params.get("track");
 const page = params.get("page");
 
-function coverMarkup(track, detail = false) {
+function coverMarkup(track) {
   const content = track.cover
     ? `<img src="${track.cover}" alt="${track.coverAlt}" loading="lazy">`
     : `<span class="cover-placeholder">${track.coverText.replace("\n", "<br>")}</span>`;
@@ -122,7 +130,7 @@ function playerMarkup(track) {
   if (track.embed.provider === "soundcloud") {
     const options = new URLSearchParams({
       url: track.url,
-      color: "#d6ee74",
+      color: "#6eb7ff",
       auto_play: "false",
       hide_related: "true",
       show_comments: "false",
@@ -133,7 +141,7 @@ function playerMarkup(track) {
     src = `https://w.soundcloud.com/player/?${options.toString()}`;
     height = 166;
   } else if (track.embed.provider === "bandcamp") {
-    src = `https://bandcamp.com/EmbeddedPlayer/track=${encodeURIComponent(track.embed.trackId)}/size=large/bgcol=20231f/linkcol=d6ee74/tracklist=false/artwork=small/transparent=true/`;
+    src = `https://bandcamp.com/EmbeddedPlayer/track=${encodeURIComponent(track.embed.trackId)}/size=large/bgcol=20231f/linkcol=6eb7ff/tracklist=false/artwork=small/transparent=true/`;
     height = 120;
   } else {
     return "";
@@ -156,21 +164,25 @@ function showGallery() {
     </section>`;
 }
 
+function trackLink(name, url) {
+  return url ? `<a href="${url}" target="_blank" rel="noopener noreferrer">${name}</a>` : name;
+}
+
 function showTrack(track) {
   const facts = [
-    [text.artist, track.artist],
-    [text.album, track.album],
-    [text.collective, track.collective],
+    [text.artist, trackLink(track.artist, track.artistUrl)],
+    [text.album, trackLink(track.album, track.albumUrl)],
+    [text.collective, trackLink(track.collective, track.collectiveUrl)],
     [text.license, `<a href="${track.licenseUrl}" target="_blank" rel="noopener noreferrer">${track.license}</a>`]
   ].filter(([, value]) => value);
   app.innerHTML = `
     <a class="back-link" href="?lang=${lang}">${text.back}</a>
     <article class="detail">
-      <div class="detail-cover">${coverMarkup(track, true)}</div>
+      <div class="detail-cover">${coverMarkup(track)}</div>
       <div class="detail-copy">
         <p class="eyebrow">${text.gallery}</p>
         <h1>${track.title}</h1>
-        <p class="artist">${track.artist}</p>
+        <p class="artist">${trackLink(track.artist, track.artistUrl)}</p>
         <p>${track.artistBio[lang]}</p>
         <dl class="track-facts">${facts.map(([label, value]) => `<div><dt>${label}</dt><dd>${value}</dd></div>`).join("")}</dl>
         ${playerMarkup(track)}
@@ -182,7 +194,10 @@ function showTextPage(title, body) {
   const contactLinks = title === text.contact
     ? `<nav class="contact-links" aria-label="${text.contact}"><a href="https://www.instagram.com/boinguxa" target="_blank" rel="noopener noreferrer">${text.instagram} ↗</a><a href="https://soundcloud.com/boinguxa" target="_blank" rel="noopener noreferrer">${text.soundcloud} ↗</a></nav>`
     : "";
-  app.innerHTML = `<section class="text-page"><p class="eyebrow">Underletrônico</p><h1>${title}</h1><p>${body}</p>${contactLinks}</section>`;
+  const licenseLink = title === text.license
+    ? `<p><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">${text.licenseLink}</a></p>`
+    : "";
+  app.innerHTML = `<section class="text-page"><p class="eyebrow">Underletrônico</p><h1>${title}</h1><p>${body}</p>${contactLinks}${licenseLink}</section>`;
 }
 
 if (trackId) {
@@ -193,6 +208,8 @@ if (trackId) {
   showTextPage(text.about, text.aboutText);
 } else if (page === "contact") {
   showTextPage(text.contact, text.contactText);
+} else if (page === "license") {
+  showTextPage(text.license, text.licenseText);
 } else {
   showGallery();
 }
