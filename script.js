@@ -14,8 +14,8 @@ const tracks = [
     licenseUrl: "https://creativecommons.org/licenses/by-nc-sa/3.0/",
     url: "https://soundcloud.com/rebolation/alyx",
     embed: { provider: "soundcloud" },
-    cover: "",
-    coverAlt: "",
+    cover: "https://i1.sndcdn.com/artworks-CfhduyZlpjAVc832-iPKJtw-original.jpg",
+    coverAlt: "DJ ALYX release cover art from SoundCloud",
     coverText: "DJ ALYX\nESTÁ VIVO",
     note: { en: "Cover art not added yet.", pt: "Capa ainda não adicionada." }
   },
@@ -57,9 +57,11 @@ const copy = {
     collective: "Collective",
     license: "License",
     about: "About",
-    aboutText: "Underground Plural is an independent archive of tracks used in DJ mixes. Each entry gathers the artist, release details, a link to listen, and the track’s license when available.",
+    aboutText: "Underletrônico is an independent archive of tracks used in DJ mixes. Each entry gathers the artist, release details, a link to listen, and the track’s license when available.",
     contact: "Contact",
-    contactText: "For questions, corrections, or music suggestions, contact the site owner through your preferred social or email link. Add your contact links here when you are ready.",
+    contactText: "For questions, corrections, or music suggestions, contact Underletrônico on Instagram or SoundCloud.",
+    instagram: "Instagram",
+    soundcloud: "SoundCloud",
     notFound: "That track could not be found.",
     home: "Browse the track archive"
   },
@@ -79,9 +81,11 @@ const copy = {
     collective: "Coletivo",
     license: "Licença",
     about: "Sobre",
-    aboutText: "Underground Plural é um arquivo independente de faixas usadas em mixes de DJ. Cada entrada reúne artista, informações do lançamento, link para ouvir e a licença da faixa quando disponível.",
+    aboutText: "Underletrônico é um arquivo independente de faixas usadas em mixes de DJ. Cada entrada reúne artista, informações do lançamento, link para ouvir e a licença da faixa quando disponível.",
     contact: "Contato",
-    contactText: "Para dúvidas, correções ou sugestões musicais, entre em contato com quem mantém o site pelo link de rede social ou e-mail de sua preferência. Adicione seus contatos aqui quando quiser.",
+    contactText: "Para dúvidas, correções ou sugestões musicais, entre em contato com Underletrônico pelo Instagram ou SoundCloud.",
+    instagram: "Instagram",
+    soundcloud: "SoundCloud",
     notFound: "Não foi possível encontrar essa faixa.",
     home: "Explorar o arquivo de faixas"
   }
@@ -91,7 +95,7 @@ const params = new URLSearchParams(window.location.search);
 const lang = params.get("lang") === "pt" ? "pt" : "en";
 const text = copy[lang];
 document.documentElement.lang = lang;
-document.title = `underground plural — ${lang === "pt" ? "faixas" : "tracks"}`;
+document.title = `Underletrônico — ${lang === "pt" ? "faixas" : "tracks"}`;
 document.querySelectorAll(".language-switch a").forEach(link => {
   if (link.getAttribute("lang") === lang) link.setAttribute("aria-current", "true");
 });
@@ -147,7 +151,7 @@ function showGallery() {
       ${tracks.map(track => `
         <a class="track-card" href="?track=${encodeURIComponent(track.id)}&lang=${lang}">
           ${coverMarkup(track)}
-          <div class="card-copy"><h2>${track.title}</h2><p>${track.artist}${track.album ? ` · ${track.album}` : ""}</p></div>
+          <div class="card-copy"><h2>${track.title}</h2><p>${track.artist}</p></div>
         </a>`).join("")}
     </section>`;
 }
@@ -168,15 +172,17 @@ function showTrack(track) {
         <h1>${track.title}</h1>
         <p class="artist">${track.artist}</p>
         <p>${track.artistBio[lang]}</p>
-        ${playerMarkup(track)}
         <dl class="track-facts">${facts.map(([label, value]) => `<div><dt>${label}</dt><dd>${value}</dd></div>`).join("")}</dl>
-        <div class="track-actions"><a class="button" href="${track.url}" target="_blank" rel="noopener noreferrer">${text.listen}</a></div>
+        ${playerMarkup(track)}
       </div>
     </article>`;
 }
 
 function showTextPage(title, body) {
-  app.innerHTML = `<section class="text-page"><p class="eyebrow">underground plural</p><h1>${title}</h1><p>${body}</p></section>`;
+  const contactLinks = title === text.contact
+    ? `<nav class="contact-links" aria-label="${text.contact}"><a href="https://www.instagram.com/boinguxa" target="_blank" rel="noopener noreferrer">${text.instagram} ↗</a><a href="https://soundcloud.com/boinguxa" target="_blank" rel="noopener noreferrer">${text.soundcloud} ↗</a></nav>`
+    : "";
+  app.innerHTML = `<section class="text-page"><p class="eyebrow">Underletrônico</p><h1>${title}</h1><p>${body}</p>${contactLinks}</section>`;
 }
 
 if (trackId) {

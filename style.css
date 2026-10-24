@@ -51,6 +51,8 @@ h1 { font-size: clamp(2.2rem, 7vw, 5.5rem); line-height: .95; letter-spacing: -.
 .button:hover { background: var(--pink); color: #171916; }
 .text-page { max-width: 680px; line-height: 1.7; }
 .text-page h1 { margin-bottom: 1.5rem; }
+.contact-links { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: 1.5rem; }
+.contact-links a { display: inline-block; padding: .75rem 1rem; border: 1px solid var(--line); text-decoration: none; }
 .back-link { display: inline-block; margin-bottom: 2rem; }
 .site-footer { display: flex; justify-content: space-between; gap: 1rem; padding: 1.2rem clamp(1rem, 4vw, 3.5rem); border-top: 1px solid var(--line); color: var(--muted); font-size: .8rem; }
 @media (max-width: 650px) {
