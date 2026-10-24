@@ -48,7 +48,7 @@ const copy = {
   en: {
     gallery: "Track archive",
     heading: "Tracks that stay with you.",
-    navGallery: "Gallery",
+    navGallery: "Tracks & Artists",
     navAbout: "About",
     navContact: "Contact",
     navLicense: "License",
@@ -74,7 +74,7 @@ const copy = {
   pt: {
     gallery: "Arquivo de faixas",
     heading: "Faixas que ficam com você.",
-    navGallery: "Galeria",
+    navGallery: "Faixas e artistas",
     navAbout: "Sobre",
     navContact: "Contato",
     navLicense: "Licença",
@@ -105,13 +105,22 @@ const text = copy[lang];
 document.documentElement.lang = lang;
 document.title = `Underletrônico — ${lang === "pt" ? "faixas" : "tracks"}`;
 document.querySelectorAll(".language-switch a").forEach(link => {
+  const nextParams = new URLSearchParams(params);
+  nextParams.set("lang", link.getAttribute("lang"));
+  link.href = `?${nextParams.toString()}`;
   if (link.getAttribute("lang") === lang) link.setAttribute("aria-current", "true");
 });
 
 const app = document.querySelector("#app");
+const navRoutes = ["", "about", "contact", "license"];
 document.querySelectorAll(".main-nav a").forEach((link, index) => {
   link.textContent = [text.navGallery, text.navAbout, text.navContact, text.navLicense][index];
+  const navParams = new URLSearchParams();
+  if (navRoutes[index]) navParams.set("page", navRoutes[index]);
+  navParams.set("lang", lang);
+  link.href = `?${navParams.toString()}`;
 });
+document.querySelector(".wordmark").href = `?lang=${lang}`;
 document.querySelector(".site-footer span:last-child").textContent = text.footerNote;
 const trackId = params.get("track");
 const page = params.get("page");
