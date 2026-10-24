@@ -18,8 +18,8 @@ const tracks = [
     embed: { provider: "soundcloud" },
     cover: "https://i1.sndcdn.com/artworks-CfhduyZlpjAVc832-iPKJtw-original.jpg",
     coverAlt: "DJ ALYX release cover art from SoundCloud",
-    coverText: "DJ ALYX\nESTÁ VIVO",
-    note: { en: "Cover art not added yet.", pt: "Capa ainda não adicionada." }
+    coverText: "",
+    note: { en: "Release artwork from SoundCloud.", pt: "Arte do lançamento via SoundCloud." }
   },
   {
     id: "synova-heal-again",
@@ -37,7 +37,7 @@ const tracks = [
     licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
     url: "https://synovamusic.bandcamp.com/track/heal-again-3",
     embed: { provider: "bandcamp", trackId: "3949445678" },
-    cover: "https://f4.bcbits.com/img/a1128829024_2.jpg",
+    cover: "https://f4.bcbits.com/img/a1128829024_0.jpg",
     coverAlt: "D.I.Y.E.D.M album art, via Bandcamp",
     coverText: "",
     note: { en: "Release artwork from Bandcamp.", pt: "Arte do lançamento via Bandcamp." }
