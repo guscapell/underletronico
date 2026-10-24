@@ -5,8 +5,8 @@ const tracks = [
     title: "DJ ALYX ESTÁ VIVO ELE ESTÁ VIVO (E DETEM O PODER aparentemente)",
     artist: "DJ ALYX",
     artistBio: {
-      en: "Artist and release details are shared on the linked SoundCloud page.",
-      pt: "Informações sobre a artista e o lançamento estão na página do SoundCloud."
+      en: "DJ ALYX is a Brazilian DJ and producer based in Londrina, Paraná.",
+      pt: "DJ ALYX é um DJ e produtor brasileiro que reside em Londrina, Paraná."
     },
     collective: "NAÇÃOREBOLATION69",
     album: "",
