@@ -1,7 +1,7 @@
 // Track information lives here. Add another object to add a gallery tile and detail page.
 const tracks = [
   {
-    id: "alyx",
+    id: "dj-alyx-esta-vivo",
     title: "DJ ALYX ESTÁ VIVO ELE ESTÁ VIVO (E DETEM O PODER aparentemente)",
     artist: "DJ ALYX",
     artistBio: {
@@ -20,12 +20,12 @@ const tracks = [
     note: { en: "Cover art not added yet.", pt: "Capa ainda não adicionada." }
   },
   {
-    id: "heal-again",
+    id: "synova-heal-again",
     title: "Heal Again",
     artist: "Synova",
     artistBio: {
       en: "Synova is an electronic music artist from Los Angeles. The artist describes the project as DIY-EDM.",
-      pt: "Synova é um artista de música eletrônica de Los Angeles. O projeto é descrito pelo artista como DIY-EDM."
+      pt: "Synova é um artista de música eletrônica de Los Angeles. O projeto é descrito pelo artista como DIY-EDM ('EDM-faça você mesmo')."
     },
     collective: "",
     album: "D.I.Y.E.D.M",
@@ -48,7 +48,7 @@ const copy = {
     navAbout: "About",
     navContact: "Contact",
     footerNote: "Independent music, shared with care.",
-    intro: "A living collection of tracks, artists and sounds from the mixes. Select a cover to explore a track.",
+    intro: "A living collection of tracks, artists and sounds from the mix. Select a cover to explore a track.",
     tracks: "tracks",
     back: "← All tracks",
     listen: "Open track page ↗",
@@ -59,7 +59,7 @@ const copy = {
     about: "About",
     aboutText: "Underletrônico is an independent archive of tracks used in DJ mixes. Each entry gathers the artist, release details, a link to listen, and the track’s license when available.",
     contact: "Contact",
-    contactText: "For questions, corrections, or music suggestions, contact Underletrônico on Instagram or SoundCloud.",
+    contactText: "For questions, corrections, or music suggestions, contact boinguxa on Instagram or SoundCloud.",
     instagram: "Instagram",
     soundcloud: "SoundCloud",
     notFound: "That track could not be found.",
@@ -83,7 +83,7 @@ const copy = {
     about: "Sobre",
     aboutText: "Underletrônico é um arquivo independente de faixas usadas em mixes de DJ. Cada entrada reúne artista, informações do lançamento, link para ouvir e a licença da faixa quando disponível.",
     contact: "Contato",
-    contactText: "Para dúvidas, correções ou sugestões musicais, entre em contato com Underletrônico pelo Instagram ou SoundCloud.",
+    contactText: "Para dúvidas, correções ou sugestões musicais, entre em contato com boinguxa pelo Instagram ou pelo SoundCloud.",
     instagram: "Instagram",
     soundcloud: "SoundCloud",
     notFound: "Não foi possível encontrar essa faixa.",
