@@ -13,6 +13,7 @@ const tracks = [
     license: "CC BY-NC-SA 3.0",
     licenseUrl: "https://creativecommons.org/licenses/by-nc-sa/3.0/",
     url: "https://soundcloud.com/rebolation/alyx",
+    embed: { provider: "soundcloud" },
     cover: "",
     coverAlt: "",
     coverText: "DJ ALYX\nESTÁ VIVO",
@@ -31,6 +32,7 @@ const tracks = [
     license: "CC BY 4.0",
     licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
     url: "https://synovamusic.bandcamp.com/track/heal-again-3",
+    embed: { provider: "bandcamp", trackId: "3949445678" },
     cover: "https://f4.bcbits.com/img/a1128829024_2.jpg",
     coverAlt: "D.I.Y.E.D.M album art, via Bandcamp",
     coverText: "",
@@ -109,6 +111,33 @@ function coverMarkup(track, detail = false) {
   return `<div class="cover" aria-label="${track.cover ? track.coverAlt : track.note[lang]}">${content}</div>`;
 }
 
+function playerMarkup(track) {
+  let src;
+  let height;
+
+  if (track.embed.provider === "soundcloud") {
+    const options = new URLSearchParams({
+      url: track.url,
+      color: "#d6ee74",
+      auto_play: "false",
+      hide_related: "true",
+      show_comments: "false",
+      show_user: "true",
+      show_reposts: "false",
+      visual: "false"
+    });
+    src = `https://w.soundcloud.com/player/?${options.toString()}`;
+    height = 166;
+  } else if (track.embed.provider === "bandcamp") {
+    src = `https://bandcamp.com/EmbeddedPlayer/track=${encodeURIComponent(track.embed.trackId)}/size=large/bgcol=20231f/linkcol=d6ee74/tracklist=false/artwork=small/transparent=true/`;
+    height = 120;
+  } else {
+    return "";
+  }
+
+  return `<div class="track-player"><iframe title="${track.artist} — ${track.title}" src="${src}" height="${height}" loading="lazy" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
+}
+
 function showGallery() {
   app.innerHTML = `
     <p class="eyebrow">${text.gallery} · ${tracks.length} ${text.tracks}</p>
@@ -139,6 +168,7 @@ function showTrack(track) {
         <h1>${track.title}</h1>
         <p class="artist">${track.artist}</p>
         <p>${track.artistBio[lang]}</p>
+        ${playerMarkup(track)}
         <dl class="track-facts">${facts.map(([label, value]) => `<div><dt>${label}</dt><dd>${value}</dd></div>`).join("")}</dl>
         <div class="track-actions"><a class="button" href="${track.url}" target="_blank" rel="noopener noreferrer">${text.listen}</a></div>
       </div>

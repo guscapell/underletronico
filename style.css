@@ -44,6 +44,8 @@ h1 { font-size: clamp(2.2rem, 7vw, 5.5rem); line-height: .95; letter-spacing: -.
 .track-facts div { display: grid; grid-template-columns: 105px 1fr; gap: 1rem; padding: .8rem 0; border-bottom: 1px solid var(--line); }
 .track-facts dt { color: var(--muted); }
 .track-facts dd { margin: 0; overflow-wrap: anywhere; }
+.track-player { width: 100%; margin: 1.5rem 0; overflow: hidden; border: 1px solid var(--line); background: var(--panel); }
+.track-player iframe { display: block; width: 100%; border: 0; }
 .track-actions { display: flex; flex-wrap: wrap; gap: 1rem; }
 .button { display: inline-block; padding: .75rem 1rem; background: var(--acid); color: #171916; font-weight: bold; text-decoration: none; }
 .button:hover { background: var(--pink); color: #171916; }
