@@ -23,7 +23,7 @@ a:hover, a:focus-visible { color: var(--pink); }
 .language-switch { margin-left: auto; white-space: nowrap; color: var(--muted); font-size: .85rem; }
 .language-switch a[aria-current="true"] { color: var(--acid); text-decoration: underline; }
 .page-shell { width: min(1120px, 100% - 2rem); margin: 0 auto; min-height: calc(100vh - 145px); padding: clamp(2.5rem, 7vw, 6rem) 0; }
-.eyebrow { color: var(--pink); text-transform: uppercase; letter-spacing: .16em; font-size: .75rem; font-weight: bold; }
+.eyebrow { color: var(--acid); text-transform: uppercase; letter-spacing: .16em; font-size: .85rem; font-weight: bold; }
 h1 { font-size: clamp(2.2rem, 7vw, 5.5rem); line-height: .95; letter-spacing: -.07em; margin: .6rem 0 1rem; max-width: 850px; }
 .intro { color: var(--muted); max-width: 620px; line-height: 1.65; margin-bottom: 3rem; }
 .track-grid, .artist-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.15rem; }

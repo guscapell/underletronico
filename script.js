@@ -107,6 +107,8 @@ const copy = {
     tracks: "tracks", back: "← All tracks", title: "Title", artist: "Artist", album: "Release",
     collective: "Collective", license: "License", listen: "Listen / Buy",
     artistTracks: "Tracks featuring this artist",
+    artistPage: "Artist",
+    trackPage: "Track",
     about: "About",
     aboutText: "An underground electronic DJ mix by boinguxa, only with tracks under Creative Commons licenses. Each entry gathers the artist, release details, a link to listen, and the track's license.",
     contact: "Contact",
@@ -127,6 +129,8 @@ const copy = {
     tracks: "faixas", back: "← Todas as faixas", title: "Título", artist: "Artista", album: "Lançamento",
     collective: "Coletivo", license: "Licença", listen: "Ouvir / Comprar",
     artistTracks: "Faixas com este artista",
+    artistPage: "Artista",
+    trackPage: "Faixa",
     about: "Sobre",
     aboutText: "Um DJ set de música eletrônica e underground feito por boinguxa, apenas com faixas sob licenças Creative Commons. O site apresenta um arquivo das faixas usadas na curadoria do set. Cada entrada reúne artista, informações do lançamento, link para ouvir e a licença da faixa.",
     contact: "Contato",
@@ -248,7 +252,7 @@ function showTrack(track) {
     <a class="back-link" href="?lang=${lang}">${text.back}</a>
     <article class="detail">
       <div class="detail-cover">${coverMarkup(track)}</div>
-      <div class="detail-copy"><p class="eyebrow">${text.gallery}</p>
+      <div class="detail-copy"><p class="eyebrow">${text.trackPage}</p>
         <dl class="track-facts">${facts.map(([label, value]) => `<div><dt>${label}</dt><dd>${value}</dd></div>`).join("")}
           ${licenseValue || listenAction ? `<div class="license-listen-row">${licenseValue ? `<span class="license-item"><span class="fact-label">${text.license}</span><span>${licenseValue}</span></span>` : ""}${licenseValue && listenAction ? `<span class="metadata-divider" aria-hidden="true"></span>` : ""}${listenAction ? `<span class="listen-item">${listenAction}</span>` : ""}</div>` : ""}
         </dl>
@@ -269,13 +273,13 @@ function showArtist(artist) {
   const links = artist.links.map(link => `<a class="artist-social" href="${link.url}" target="_blank" rel="noopener noreferrer">${platformIcon(link.type)}<span>${link.label}</span></a>`).join("");
   const artistTracks = tracks.filter(track => track.artistId === artist.id).sort((a, b) => a.title.localeCompare(b.title, lang, { sensitivity: "base" }));
   const discography = artistTracks.length ? `<section class="artist-discography"><h2>${text.artistTracks}</h2><ul>${artistTracks.map(track => `<li><a href="?track=${encodeURIComponent(track.id)}&lang=${lang}">${track.title}</a></li>`).join("")}</ul></section>` : "";
-  app.innerHTML = `<a class="back-link" href="?page=artists&lang=${lang}">${text.navArtists}</a><article class="artist-profile"><img class="artist-profile-image" src="${artist.image}" alt="${artist.imageAlt}" draggable="false"><div><p class="eyebrow">${text.navArtists}</p><h1>${artist.name}</h1><p>${artist.bio[lang]}</p><nav class="artist-socials" aria-label="${artist.name}">${links}</nav>${discography}</div></article>`;
+  app.innerHTML = `<a class="back-link" href="?page=artists&lang=${lang}">${text.navArtists}</a><article class="artist-profile"><img class="artist-profile-image" src="${artist.image}" alt="${artist.imageAlt}" draggable="false"><div><p class="eyebrow">${text.artistPage}</p><h1>${artist.name}</h1><p>${artist.bio[lang]}</p><nav class="artist-socials" aria-label="${artist.name}">${links}</nav>${discography}</div></article>`;
 }
 
 function showTextPage(title, body) {
   const contactLinks = title === text.contact ? `<nav class="contact-links" aria-label="${text.contact}"><a href="${text.contactInstagramUrl}" target="_blank" rel="noopener noreferrer"><img src="assets/icon-instagram.svg" alt="" aria-hidden="true" draggable="false">${text.instagram}</a><a href="${text.contactSoundCloudUrl}" target="_blank" rel="noopener noreferrer"><img src="assets/icon-soundcloud.svg" alt="" aria-hidden="true" draggable="false">${text.soundcloud}</a></nav>` : "";
   const licenseLink = title === text.license ? `<p><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">${text.licenseLink}</a></p>` : "";
-  app.innerHTML = `<section class="text-page"><p class="eyebrow">Underletrônico</p><h1>${title}</h1><p>${body}</p>${contactLinks}${licenseLink}</section>`;
+  app.innerHTML = `<section class="text-page"><p class="eyebrow">${title}</p><h1>${title}</h1><p>${body}</p>${contactLinks}${licenseLink}</section>`;
 }
 
 if (trackId) {
