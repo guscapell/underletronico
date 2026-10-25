@@ -167,7 +167,7 @@ const tracks = [
 const copy = {
   en: {
     gallery: "Track archive",
-    navGallery: "Tracks", navArtists: "Artists", navTracklist: "Tracklist",
+    navGallery: "Tracks", navArchive: "Archive", navArtists: "Artists", navTracklist: "Tracklist",
     navAbout: "About", navContact: "Contact", navLicense: "License",
     tracks: "tracks", back: "← All tracks", title: "Title", artist: "Artist", album: "Release",
     collective: "Collective", label: "Label", license: "License", listen: "Listen / Buy", note: "Note",
@@ -188,7 +188,7 @@ const copy = {
   },
   pt: {
     gallery: "Arquivo de faixas",
-    navGallery: "Faixas", navArtists: "Artistas", navTracklist: "Lista de Faixas",
+    navGallery: "Faixas", navArchive: "Arquivo", navArtists: "Artistas", navTracklist: "Lista",
     navAbout: "Sobre", navContact: "Contato", navLicense: "Licença",
     tracks: "faixas", back: "← Todas as faixas", title: "Título", artist: "Artista", album: "Lançamento",
     collective: "Coletivo", label: "Selo", license: "Licença", listen: "Ouvir / Comprar", note: "Observação",
@@ -235,16 +235,29 @@ document.querySelectorAll(".language-switch a").forEach(link => {
 });
 
 const app = document.querySelector("#app");
-const navRoutes = ["", "artists", "tracklist", "about", "contact", "license"];
-document.querySelectorAll(".main-nav a").forEach((link, index) => {
-  link.textContent = [text.navGallery, text.navArtists, text.navTracklist, text.navAbout, text.navContact, text.navLicense][index];
+const navLinks = [
+  [".nav-group-label", text.navGallery, null],
+  [".nav-submenu a:first-child", text.navArchive, "archive"],
+  [".nav-submenu a:last-child", text.navTracklist, "tracklist"],
+  [".main-nav > a[href*=artists]", text.navArtists, "artists"],
+  [".main-nav > a[href*=about]", text.navAbout, "about"],
+  [".main-nav > a[href*=contact]", text.navContact, "contact"],
+  [".main-nav > a[href*=license]", text.navLicense, "license"]
+];
+navLinks.forEach(([selector, label, route]) => {
+  const link = document.querySelector(selector);
   const navParams = new URLSearchParams();
-  if (navRoutes[index]) navParams.set("page", navRoutes[index]);
+  if (route && route !== "archive") navParams.set("page", route);
   navParams.set("lang", lang);
+  link.textContent = label;
   link.href = `?${navParams.toString()}`;
-  const isActive = index === 0 ? (!page || Boolean(trackId)) : page === navRoutes[index];
+  const isActive = route === "archive" ? (!page || Boolean(trackId)) : route ? page === route : false;
   if (isActive) link.setAttribute("aria-current", "page");
+  else link.removeAttribute("aria-current");
 });
+const tracksGroup = document.querySelector(".nav-tracks");
+if (!page || page === "tracklist" || trackId) tracksGroup.classList.add("is-active");
+else tracksGroup.classList.remove("is-active");
 document.querySelector(".wordmark").href = `?lang=${lang}`;
 document.querySelector(".footer-license").href = lang === "pt"
   ? "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.pt-br"
