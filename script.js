@@ -297,6 +297,11 @@ function showGallery() {
     </section>`;
 }
 
+function localizedLicenseUrl(url) {
+  if (!url || lang !== "pt" || !url.startsWith("https://creativecommons.org/licenses/")) return url;
+  return `${url.replace(/\/(?:deed(?:\.[a-z-]+)?)?\/?$/, "")}/deed.pt-br`;
+}
+
 function trackLink(name, url) {
   return url ? `<a href="${url}" target="_blank" rel="noopener noreferrer">${name}</a>` : name;
 }
@@ -309,7 +314,7 @@ function showTrack(track) {
     [text.album, trackLink(track.album, track.albumUrl)],
     [text.collective, trackLink(track.collective, track.collectiveUrl)],
     [text.note, track.trackNote?.[lang] ?? ""],
-    [text.license, track.license ? `<span class="license-listen-value"><a href="${track.licenseUrl}" target="_blank" rel="noopener noreferrer">${track.license}</a>${track.url ? `<span class="metadata-divider" aria-hidden="true"></span><a href="${track.url}" target="_blank" rel="noopener noreferrer">${text.listen}</a>` : ""}</span>` : (track.url ? `<a href="${track.url}" target="_blank" rel="noopener noreferrer">${text.listen}</a>` : "")]
+    [text.license, track.license ? `<span class="license-listen-value"><a href="${localizedLicenseUrl(track.licenseUrl)}" target="_blank" rel="noopener noreferrer">${track.license}</a>${track.url ? `<span class="metadata-divider" aria-hidden="true"></span><a href="${track.url}" target="_blank" rel="noopener noreferrer">${text.listen}</a>` : ""}</span>` : (track.url ? `<a href="${track.url}" target="_blank" rel="noopener noreferrer">${text.listen}</a>` : "")]
   ].filter(([, value]) => value);
   app.innerHTML = `
     <a class="back-link" href="?lang=${lang}">${text.back}</a>
@@ -339,7 +344,7 @@ function showArtist(artist) {
 
 function showTextPage(title, body) {
   const contactLinks = title === text.contact ? `<nav class="contact-links" aria-label="${text.contact}"><a href="${text.contactInstagramUrl}" target="_blank" rel="noopener noreferrer"><img src="assets/icon-instagram.svg" alt="" aria-hidden="true" draggable="false">${text.instagram}</a><a href="${text.contactSoundCloudUrl}" target="_blank" rel="noopener noreferrer"><img src="assets/icon-soundcloud.svg" alt="" aria-hidden="true" draggable="false">${text.soundcloud}</a></nav>` : "";
-  const licenseLink = title === text.license ? `<p><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">${text.licenseLink}</a></p>` : "";
+  const licenseLink = title === text.license ? `<p><a href="${localizedLicenseUrl("https://creativecommons.org/licenses/by-nc-sa/4.0/")}" target="_blank" rel="noopener noreferrer">${text.licenseLink}</a></p>` : "";
   const sectionHeading = title === text.tracklist ? pageLabels.tracklist : title;
   app.innerHTML = `<section class="text-page"><p class="eyebrow">${sectionHeading}</p><p>${body}</p>${contactLinks}${licenseLink}</section>`;
 }
