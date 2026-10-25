@@ -151,6 +151,9 @@ const text = copy[lang];
 const trackId = params.get("track");
 const page = params.get("page");
 document.documentElement.lang = lang;
+const pageLabels = lang === "pt"
+  ? { tracks: "Faixas", artists: "Artistas", tracklist: "Lista de Faixas", about: "Sobre", contact: "Contato", license: "Licença", track: "Faixa", artist: "Artista" }
+  : { tracks: "Tracks", artists: "Artists", tracklist: "Tracklist", about: "About", contact: "Contact", license: "License", track: "Track", artist: "Artist" };
 // Discourage casual image saving; images remain accessible through browser tools and network requests.
 document.addEventListener("contextmenu", event => {
   if (event.target instanceof HTMLImageElement) event.preventDefault();
@@ -272,7 +275,8 @@ function showArtist(artist) {
 function showTextPage(title, body) {
   const contactLinks = title === text.contact ? `<nav class="contact-links" aria-label="${text.contact}"><a href="${text.contactInstagramUrl}" target="_blank" rel="noopener noreferrer"><img src="assets/icon-instagram.svg" alt="" aria-hidden="true" draggable="false">${text.instagram}</a><a href="${text.contactSoundCloudUrl}" target="_blank" rel="noopener noreferrer"><img src="assets/icon-soundcloud.svg" alt="" aria-hidden="true" draggable="false">${text.soundcloud}</a></nav>` : "";
   const licenseLink = title === text.license ? `<p><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">${text.licenseLink}</a></p>` : "";
-  app.innerHTML = `<section class="text-page"><p class="eyebrow">${title}</p><p>${body}</p>${contactLinks}${licenseLink}</section>`;
+  const sectionHeading = title === text.tracklist ? pageLabels.tracklist : title;
+  app.innerHTML = `<section class="text-page"><p class="eyebrow">${sectionHeading}</p><p>${body}</p>${contactLinks}${licenseLink}</section>`;
 }
 
 if (trackId) {
