@@ -42,8 +42,14 @@ h1 { font-size: clamp(2.2rem, 7vw, 5.5rem); line-height: .95; letter-spacing: -.
 .detail-copy h1 { font-size: clamp(2.1rem, 5vw, 4rem); }
 .track-facts { margin: 1.5rem 0; border-top: 1px solid var(--line); }
 .track-facts div { display: grid; grid-template-columns: 105px 1fr; gap: 1rem; padding: .8rem 0; border-bottom: 1px solid var(--line); }
-.track-facts dt { color: var(--muted); }
+.track-facts dt { color: var(--muted); white-space: nowrap; }
 .track-facts dd { margin: 0; overflow-wrap: anywhere; }
+.track-title-value { font-size: 1.15rem; font-weight: 600; }
+.track-facts .license-listen-row { display: flex; grid-column: 1 / -1; align-items: center; flex-wrap: wrap; gap: .8rem; }
+.license-item { display: inline-flex; align-items: center; gap: 1rem; }
+.fact-label { color: var(--muted); white-space: nowrap; }
+.metadata-divider { height: 1.2em; border-left: 1px solid var(--line); }
+.listen-item { white-space: nowrap; }
 .track-player { width: 100%; margin: 1.5rem 0; overflow: hidden; border: 0; background: transparent; }
 .track-player iframe { display: block; width: 100%; max-width: 100%; margin: 0; border: 0; }
 .track-player.bandcamp-player { background: #20242a; }

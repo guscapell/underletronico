@@ -104,8 +104,8 @@ const copy = {
     navGallery: "Tracks", navArtists: "Artists", navTracklist: "Tracklist",
     navAbout: "About", navContact: "Contact", navLicense: "License",
     footerNote: "Independent music, shared with care.",
-    tracks: "tracks", back: "← All tracks", artist: "Artist", album: "Release / album",
-    collective: "Collective", license: "License", listen: "Listen / buy",
+    tracks: "tracks", back: "← All tracks", title: "Title", artist: "Artist", album: "Release / Album",
+    collective: "Collective", license: "License", listen: "Listen / Buy",
     artistTracks: "Tracks featuring this artist",
     about: "About",
     aboutText: "An underground electronic DJ mix by boinguxa, only with tracks under Creative Commons licenses. Each entry gathers the artist, release details, a link to listen, and the track's license.",
@@ -122,8 +122,8 @@ const copy = {
     navGallery: "Faixas", navArtists: "Artistas", navTracklist: "Lista de Faixas",
     navAbout: "Sobre", navContact: "Contato", navLicense: "Licença",
     footerNote: "Música independente, compartilhada com cuidado.",
-    tracks: "faixas", back: "← Todas as faixas", artist: "Artista", album: "Lançamento / álbum",
-    collective: "Coletivo", license: "Licença", listen: "Ouvir / comprar",
+    tracks: "faixas", back: "← Todas as faixas", title: "Título", artist: "Artista", album: "Lançamento / Álbum",
+    collective: "Coletivo", license: "Licença", listen: "Ouvir / Comprar",
     artistTracks: "Faixas com este artista",
     about: "Sobre",
     aboutText: "Um DJ set de música eletrônica e underground feito por boinguxa, apenas com faixas sob licenças Creative Commons. O site apresenta um arquivo das faixas usadas na curadoria do set. Cada entrada reúne artista, informações do lançamento, link para ouvir e a licença da faixa.",
@@ -222,18 +222,25 @@ function trackLink(name, url) {
 function showTrack(track) {
   const artist = artists.find(entry => entry.id === track.artistId);
   const facts = [
+    [text.title, `<span class="track-title-value">${track.title}</span>`],
     [text.artist, artist ? `<a href="?page=artist&artist=${artist.id}&lang=${lang}">${artist.name}</a>` : ""],
     [text.album, trackLink(track.album, track.albumUrl)],
-    [text.listen, track.url ? trackLink(text.listen, track.url) : ""],
-    [text.collective, trackLink(track.collective, track.collectiveUrl)],
-    [text.license, track.license ? `<a href="${track.licenseUrl}" target="_blank" rel="noopener noreferrer">${track.license}</a>` : ""]
+    [text.collective, trackLink(track.collective, track.collectiveUrl)]
   ].filter(([, value]) => value);
+  const licenseValue = track.license
+    ? `<a href="${track.licenseUrl}" target="_blank" rel="noopener noreferrer">${track.license}</a>`
+    : "";
+  const listenAction = track.url
+    ? `<a href="${track.url}" target="_blank" rel="noopener noreferrer">${text.listen}</a>`
+    : "";
   app.innerHTML = `
     <a class="back-link" href="?lang=${lang}">${text.back}</a>
     <article class="detail">
       <div class="detail-cover">${coverMarkup(track)}</div>
-      <div class="detail-copy"><p class="eyebrow">${text.gallery}</p><h1>${track.title}</h1>
-        <dl class="track-facts">${facts.map(([label, value]) => `<div><dt>${label}</dt><dd>${value}</dd></div>`).join("")}</dl>
+      <div class="detail-copy"><p class="eyebrow">${text.gallery}</p>
+        <dl class="track-facts">${facts.map(([label, value]) => `<div><dt>${label}</dt><dd>${value}</dd></div>`).join("")}
+          ${licenseValue || listenAction ? `<div class="license-listen-row">${licenseValue ? `<span class="license-item"><span class="fact-label">${text.license}</span><span>${licenseValue}</span></span>` : ""}${licenseValue && listenAction ? `<span class="metadata-divider" aria-hidden="true"></span>` : ""}${listenAction ? `<span class="listen-item">${listenAction}</span>` : ""}</div>` : ""}
+        </dl>
         ${playerMarkup(track)}</div>
     </article>`;
 }
