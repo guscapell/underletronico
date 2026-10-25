@@ -77,7 +77,7 @@ const copy = {
   pt: {
     gallery: "Arquivo de faixas",
     heading: "Faixas que ficam com você.",
-    navGallery: "Faixas e artistas",
+    navGallery: "Faixas & Artistas",
     navAbout: "Sobre",
     navContact: "Contato",
     navLicense: "Licença",
@@ -128,9 +128,9 @@ document.querySelectorAll(".language-switch a").forEach(link => {
 });
 
 const app = document.querySelector("#app");
-const navRoutes = ["", "about", "contact", "license", "tracklist"];
+const navRoutes = ["", "tracklist", "about", "contact", "license"];
 document.querySelectorAll(".main-nav a").forEach((link, index) => {
-  link.textContent = [text.navGallery, text.navAbout, text.navContact, text.navLicense, text.navTracklist][index];
+  link.textContent = [text.navGallery, text.navTracklist, text.navAbout, text.navContact, text.navLicense][index];
   const navParams = new URLSearchParams();
   if (navRoutes[index]) navParams.set("page", navRoutes[index]);
   navParams.set("lang", lang);
