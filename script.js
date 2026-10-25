@@ -135,7 +135,6 @@ const copy = {
     gallery: "Track archive",
     navGallery: "Tracks", navArtists: "Artists", navTracklist: "Tracklist",
     navAbout: "About", navContact: "Contact", navLicense: "License",
-    footerNote: "Independent music, shared with care.",
     tracks: "tracks", back: "← All tracks", title: "Title", artist: "Artist", album: "Release",
     collective: "Collective", license: "License", listen: "Listen / Buy", note: "Note",
     artistTracks: "Tracks featuring this artist",
@@ -157,7 +156,6 @@ const copy = {
     gallery: "Arquivo de faixas",
     navGallery: "Faixas", navArtists: "Artistas", navTracklist: "Lista de Faixas",
     navAbout: "Sobre", navContact: "Contato", navLicense: "Licença",
-    footerNote: "Música independente, compartilhada com cuidado.",
     tracks: "faixas", back: "← Todas as faixas", title: "Título", artist: "Artista", album: "Lançamento",
     collective: "Coletivo", license: "Licença", listen: "Ouvir / Comprar", note: "Observação",
     artistTracks: "Faixas com este artista",
@@ -214,7 +212,6 @@ document.querySelectorAll(".main-nav a").forEach((link, index) => {
   if (isActive) link.setAttribute("aria-current", "page");
 });
 document.querySelector(".wordmark").href = `?lang=${lang}`;
-document.querySelector(".site-footer span:last-child").textContent = text.footerNote;
 
 function coverMarkup(item) {
   const content = item.cover
