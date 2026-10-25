@@ -199,7 +199,6 @@ function showTrack(track) {
       <div class="detail-copy">
         <p class="eyebrow">${text.gallery}</p>
         <h1>${track.title}</h1>
-        <p class="artist">${trackLink(track.artist, track.artistUrl)}</p>
         <p>${track.artistBio[lang]}</p>
         <dl class="track-facts">${facts.map(([label, value]) => `<div><dt>${label}</dt><dd>${value}</dd></div>`).join("")}</dl>
         ${playerMarkup(track)}
