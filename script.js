@@ -102,6 +102,8 @@ const copy = {
 const params = new URLSearchParams(window.location.search);
 const lang = params.get("lang") === "pt" ? "pt" : "en";
 const text = copy[lang];
+const trackId = params.get("track");
+const page = params.get("page");
 document.documentElement.lang = lang;
 const titleLabels = lang === "pt"
   ? { about: "Sobre", contact: "Contato", license: "Licença", track: "Faixa" }
@@ -130,8 +132,6 @@ document.querySelectorAll(".main-nav a").forEach((link, index) => {
 });
 document.querySelector(".wordmark").href = `?lang=${lang}`;
 document.querySelector(".site-footer span:last-child").textContent = text.footerNote;
-const trackId = params.get("track");
-const page = params.get("page");
 
 function coverMarkup(track) {
   const content = track.cover
