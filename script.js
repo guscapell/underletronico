@@ -189,15 +189,15 @@ function playerMarkup(track) {
   if (track.embed.provider === "soundcloud") {
     const options = new URLSearchParams({ url: track.url, color: "#6eb7ff", auto_play: "false", hide_related: "true", show_comments: "false", show_user: "true", show_reposts: "false", visual: "false" });
     const src = `https://w.soundcloud.com/player/?${options.toString()}`;
-    return `<div class="track-player"><iframe title="${track.title}" src="${src}" height="166" loading="lazy" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
+    return `<div class="track-player soundcloud-player"><iframe title="${track.title}" src="${src}" height="166" loading="lazy" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
   }
   if (track.embed.provider === "bandcamp" && track.embed.albumId && track.embed.trackId) {
     const src = `https://bandcamp.com/EmbeddedPlayer/album=${encodeURIComponent(track.embed.albumId)}/size=large/bgcol=333333/linkcol=0f91ff/tracklist=false/artwork=small/track=${encodeURIComponent(track.embed.trackId)}/transparent=true/`;
-    return `<div class="track-player"><iframe title="${track.title}" src="${src}" height="120" loading="lazy" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
+    return `<div class="track-player bandcamp-player"><iframe title="${track.title}" src="${src}" height="120" loading="lazy" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
   }
   if (track.embed.provider === "bandcamp" && track.embed.trackId) {
     const src = `https://bandcamp.com/EmbeddedPlayer/track=${encodeURIComponent(track.embed.trackId)}/size=large/bgcol=20242a/linkcol=6eb7ff/tracklist=false/artwork=small/transparent=true/`;
-    return `<div class="track-player"><iframe title="${track.title}" src="${src}" height="120" loading="lazy" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
+    return `<div class="track-player bandcamp-player"><iframe title="${track.title}" src="${src}" height="120" loading="lazy" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
   }
   return "";
 }
