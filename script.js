@@ -166,7 +166,7 @@ const tracks = [
 
 const copy = {
   en: {
-    gallery: "Track archive",
+    gallery: "Track Archive",
     navGallery: "Tracks", navArchive: "Archive", navArtists: "Artists", navTracklist: "Tracklist",
     navAbout: "About", navContact: "Contact", navLicense: "License",
     tracks: "tracks", back: "← All tracks", title: "Title", artist: "Artist", album: "Release",
@@ -187,8 +187,8 @@ const copy = {
     notFound: "That track or artist could not be found.", home: "Browse the track archive"
   },
   pt: {
-    gallery: "Arquivo de faixas",
-    navGallery: "Faixas", navArchive: "Arquivo", navArtists: "Artistas", navTracklist: "Lista",
+    gallery: "Arquivo de Faixas",
+    navGallery: "Faixas", navArchive: "Arquivo", navArtists: "Artistas", navTracklist: "Lista de Faixas",
     navAbout: "Sobre", navContact: "Contato", navLicense: "Licença",
     tracks: "faixas", back: "← Todas as faixas", title: "Título", artist: "Artista", album: "Lançamento",
     collective: "Coletivo", label: "Selo", license: "Licença", listen: "Ouvir / Comprar", note: "Observação",
@@ -236,9 +236,7 @@ document.querySelectorAll(".language-switch a").forEach(link => {
 
 const app = document.querySelector("#app");
 const navLinks = [
-  ["#nav-tracks-label", text.navGallery, null],
-  ["#nav-archive", text.navArchive, "archive"],
-  ["#nav-tracklist", text.navTracklist, "tracklist"],
+  [".nav-tracks", text.navGallery, "tracks"],
   [".nav-artists", text.navArtists, "artists"],
   [".nav-about", text.navAbout, "about"],
   [".nav-contact", text.navContact, "contact"],
@@ -251,13 +249,10 @@ navLinks.forEach(([selector, label, route]) => {
   navParams.set("lang", lang);
   link.textContent = label;
   link.href = `?${navParams.toString()}`;
-  const isActive = route === "archive" ? (!page || Boolean(trackId)) : route ? page === route : false;
+  const isActive = route === "tracks" ? (!page || page === "tracklist" || page === "artist" || Boolean(trackId)) : route ? page === route : false;
   if (isActive) link.setAttribute("aria-current", "page");
   else link.removeAttribute("aria-current");
 });
-const tracksGroup = document.querySelector(".nav-tracks");
-if (!page || page === "tracklist" || trackId) tracksGroup.classList.add("is-active");
-else tracksGroup.classList.remove("is-active");
 document.querySelector(".wordmark").href = `?lang=${lang}`;
 document.querySelector(".footer-license").href = lang === "pt"
   ? "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.pt-br"
@@ -299,10 +294,19 @@ function playerMarkup(track) {
   return "";
 }
 
+function trackSectionNav(activePage) {
+  const archiveActive = activePage === "archive";
+  const tracklistActive = activePage === "tracklist";
+  return `<nav class="track-section-nav" aria-label="${text.navGallery}">
+    <a href="?lang=${lang}"${archiveActive ? ' aria-current="page"' : ""}>${text.gallery}</a>
+    <a href="?page=tracklist&lang=${lang}"${tracklistActive ? ' aria-current="page"' : ""}>${text.navTracklist}</a>
+  </nav>`;
+}
+
 function showGallery() {
   const orderedTracks = [...tracks].sort((a, b) => a.title.localeCompare(b.title, lang, { sensitivity: "base" }));
   app.innerHTML = `
-    <p class="eyebrow">${pageLabels.tracks} · ${tracks.length} ${text.tracks}</p>
+    ${trackSectionNav("archive")}
     <section class="track-grid" aria-label="${text.gallery}">
       ${orderedTracks.map(track => `
         <a class="track-card" href="?track=${encodeURIComponent(track.id)}&lang=${lang}">
@@ -362,7 +366,7 @@ function showTextPage(title, body) {
   const contactLinks = title === text.contact ? `<nav class="contact-links" aria-label="${text.contact}"><a href="${text.contactInstagramUrl}" target="_blank" rel="noopener noreferrer"><img src="assets/icon-instagram.svg" alt="" aria-hidden="true" draggable="false">${text.instagram}</a><a href="${text.contactSoundCloudUrl}" target="_blank" rel="noopener noreferrer"><img src="assets/icon-soundcloud.svg" alt="" aria-hidden="true" draggable="false">${text.soundcloud}</a></nav>` : "";
   const licenseLink = title === text.license ? `<p><a href="${localizedLicenseUrl("https://creativecommons.org/licenses/by-nc-sa/4.0/")}" target="_blank" rel="noopener noreferrer">${text.licenseLink}</a></p>` : "";
   const sectionHeading = title === text.tracklist ? pageLabels.tracklist : title;
-  app.innerHTML = `<section class="text-page"><p class="eyebrow">${sectionHeading}</p><p>${body}</p>${contactLinks}${licenseLink}</section>`;
+  app.innerHTML = `<section class="text-page">${title === text.tracklist ? trackSectionNav("tracklist") : ""}<p class="eyebrow">${sectionHeading}</p><p>${body}</p>${contactLinks}${licenseLink}</section>`;
 }
 
 if (trackId) {
