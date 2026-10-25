@@ -168,7 +168,7 @@ const copy = {
   en: {
     gallery: "Track Archive",
     navGallery: "Tracks", navArchive: "Archive", navArtists: "Artists", navTracklist: "Tracklist",
-    navAbout: "About", navContact: "Contact", navLicense: "License",
+    navAbout: "About", navContact: "Author", navLicense: "License",
     tracks: "tracks", back: "← All tracks", title: "Title", artist: "Artist", album: "Release",
     collective: "Collective", label: "Label", license: "License", listen: "Listen / Buy", note: "Note",
     artistTracks: "Tracks featuring this artist",
@@ -176,8 +176,8 @@ const copy = {
     trackPage: "Track",
     about: "About",
     aboutText: "An underground electronic DJ mix by boinguxa, including only tracks released under Creative Commons licenses. Each entry gathers the artist, release details, a link to listen, and the track's license.",
-    contact: "Contact",
-    contactText: "For questions, corrections, or music suggestions, contact boinguxa on Instagram or SoundCloud.",
+    contact: "Author",
+    contactText: "Underletrônico is a project by Gustavo Capellari, also known as boinguxa.",
     instagram: "Instagram", soundcloud: "SoundCloud",
     contactInstagramUrl: "https://www.instagram.com/boinguxa",
     contactSoundCloudUrl: "https://soundcloud.com/boinguxa",
@@ -189,7 +189,7 @@ const copy = {
   pt: {
     gallery: "Arquivo de Faixas",
     navGallery: "Faixas", navArchive: "Arquivo", navArtists: "Artistas", navTracklist: "Lista de Faixas",
-    navAbout: "Sobre", navContact: "Contato", navLicense: "Licença",
+    navAbout: "Sobre", navContact: "Autor", navLicense: "Licença",
     tracks: "faixas", back: "← Todas as faixas", title: "Título", artist: "Artista", album: "Lançamento",
     collective: "Coletivo", label: "Selo", license: "Licença", listen: "Ouvir / Comprar", note: "Observação",
     artistTracks: "Faixas com este artista",
@@ -197,8 +197,8 @@ const copy = {
     trackPage: "Faixa",
     about: "Sobre",
     aboutText: "Um DJ set de música eletrônica e underground feito por boinguxa, apenas com faixas disponibilizadas sob licenças Creative Commons. O site apresenta um arquivo das faixas usadas na curadoria do set. Cada entrada reúne artista, informações do lançamento, link para ouvir e a licença da faixa.",
-    contact: "Contato",
-    contactText: "Para dúvidas, correções ou sugestões musicais, entre em contato com boinguxa pelo Instagram ou pelo SoundCloud.",
+    contact: "Autor",
+    contactText: "Underletrônico é um projeto por Gustavo Capellari, também conhecido como boinguxa.",
     instagram: "Instagram", soundcloud: "SoundCloud",
     contactInstagramUrl: "https://www.instagram.com/boinguxa",
     contactSoundCloudUrl: "https://soundcloud.com/boinguxa",
@@ -365,8 +365,9 @@ function showArtist(artist) {
 function showTextPage(title, body) {
   const contactLinks = title === text.contact ? `<nav class="contact-links" aria-label="${text.contact}"><a href="${text.contactInstagramUrl}" target="_blank" rel="noopener noreferrer"><img src="assets/icon-instagram.svg" alt="" aria-hidden="true" draggable="false">${text.instagram}</a><a href="${text.contactSoundCloudUrl}" target="_blank" rel="noopener noreferrer"><img src="assets/icon-soundcloud.svg" alt="" aria-hidden="true" draggable="false">${text.soundcloud}</a></nav>` : "";
   const licenseLink = title === text.license ? `<p><a href="${localizedLicenseUrl("https://creativecommons.org/licenses/by-nc-sa/4.0/")}" target="_blank" rel="noopener noreferrer">${text.licenseLink}</a></p>` : "";
-  const sectionHeading = title === text.tracklist ? pageLabels.tracklist : title;
-  app.innerHTML = `<section class="text-page">${title === text.tracklist ? trackSectionNav("tracklist") : ""}<p class="eyebrow">${sectionHeading}</p><p>${body}</p>${contactLinks}${licenseLink}</section>`;
+  const isTracklist = title === text.tracklist;
+  const sectionHeading = isTracklist ? "" : title;
+  app.innerHTML = `<section class="text-page">${isTracklist ? trackSectionNav("tracklist") : ""}${sectionHeading ? `<p class="eyebrow">${sectionHeading}</p>` : ""}<p>${body}</p>${contactLinks}${licenseLink}</section>`;
 }
 
 if (trackId) {
