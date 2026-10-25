@@ -45,7 +45,7 @@ h1 { font-size: clamp(2.2rem, 7vw, 5.5rem); line-height: .95; letter-spacing: -.
 .track-facts dt { color: var(--muted); }
 .track-facts dd { margin: 0; overflow-wrap: anywhere; }
 .track-player { width: 100%; margin: 1.5rem 0; overflow: hidden; border: 1px solid var(--line); background: var(--panel); }
-.track-player iframe { display: block; width: calc(100% + 2px); max-width: none; margin-right: -2px; border: 0; }
+.track-player iframe { display: block; width: 100%; max-width: 100%; margin: 0; border: 0; }
 .artist-profile { display: grid; grid-template-columns: minmax(180px, .6fr) minmax(0, 1.4fr); gap: clamp(1.25rem, 4vw, 3rem); align-items: start; }
 .artist-profile-image { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; border: 1px solid var(--line); user-select: none; -webkit-user-drag: none; }
 .artist-socials { display: flex; flex-wrap: wrap; gap: .75rem; margin-top: 1.5rem; }

@@ -86,7 +86,6 @@ const tracks = [
     license: "CC BY-NC 4.0",
     licenseUrl: "https://creativecommons.org/licenses/by-nc/4.0/",
     url: "https://rrose.bandcamp.com/track/triplicate",
-    trackUrlLabel: "Bandcamp",
     embed: {
       provider: "bandcamp",
       albumId: "1244851672",
@@ -106,7 +105,7 @@ const copy = {
     navAbout: "About", navContact: "Contact", navLicense: "License",
     footerNote: "Independent music, shared with care.",
     tracks: "tracks", back: "← All tracks", artist: "Artist", album: "Release / album",
-    collective: "Collective", license: "License", listen: "Listen",
+    collective: "Collective", license: "License", listen: "Listen / buy",
     artistTracks: "Tracks featuring this artist",
     about: "About",
     aboutText: "An underground electronic DJ mix by boinguxa, only with tracks under Creative Commons licenses. Each entry gathers the artist, release details, a link to listen, and the track's license.",
@@ -124,7 +123,7 @@ const copy = {
     navAbout: "Sobre", navContact: "Contato", navLicense: "Licença",
     footerNote: "Música independente, compartilhada com cuidado.",
     tracks: "faixas", back: "← Todas as faixas", artist: "Artista", album: "Lançamento / álbum",
-    collective: "Coletivo", license: "Licença", listen: "Ouvir",
+    collective: "Coletivo", license: "Licença", listen: "Ouvir / comprar",
     artistTracks: "Faixas com este artista",
     about: "Sobre",
     aboutText: "Um DJ set de música eletrônica e underground feito por boinguxa, apenas com faixas sob licenças Creative Commons. O site apresenta um arquivo das faixas usadas na curadoria do set. Cada entrada reúne artista, informações do lançamento, link para ouvir e a licença da faixa.",
@@ -225,7 +224,7 @@ function showTrack(track) {
   const facts = [
     [text.artist, artist ? `<a href="?page=artist&artist=${artist.id}&lang=${lang}">${artist.name}</a>` : ""],
     [text.album, trackLink(track.album, track.albumUrl)],
-    [text.listen, track.trackUrlLabel ? trackLink(track.trackUrlLabel, track.embed.albumLink || track.url) : ""],
+    [text.listen, track.url ? trackLink(text.listen, track.url) : ""],
     [text.collective, trackLink(track.collective, track.collectiveUrl)],
     [text.license, track.license ? `<a href="${track.licenseUrl}" target="_blank" rel="noopener noreferrer">${track.license}</a>` : ""]
   ].filter(([, value]) => value);
