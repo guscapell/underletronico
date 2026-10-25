@@ -240,22 +240,15 @@ function showTrack(track) {
     [text.title, `<span class="track-title-value">${track.title}</span>`],
     [text.artist, artist ? `<a href="?page=artist&artist=${artist.id}&lang=${lang}">${artist.name}</a>` : ""],
     [text.album, trackLink(track.album, track.albumUrl)],
-    [text.collective, trackLink(track.collective, track.collectiveUrl)]
+    [text.collective, trackLink(track.collective, track.collectiveUrl)],
+    [text.license, track.license ? `<span class="license-listen-value"><a href="${track.licenseUrl}" target="_blank" rel="noopener noreferrer">${track.license}</a>${track.url ? `<span class="metadata-divider" aria-hidden="true"></span><a href="${track.url}" target="_blank" rel="noopener noreferrer">${text.listen}</a>` : ""}</span>` : (track.url ? `<a href="${track.url}" target="_blank" rel="noopener noreferrer">${text.listen}</a>` : "")]
   ].filter(([, value]) => value);
-  const licenseValue = track.license
-    ? `<a href="${track.licenseUrl}" target="_blank" rel="noopener noreferrer">${track.license}</a>`
-    : "";
-  const listenAction = track.url
-    ? `<a href="${track.url}" target="_blank" rel="noopener noreferrer">${text.listen}</a>`
-    : "";
   app.innerHTML = `
     <a class="back-link" href="?lang=${lang}">${text.back}</a>
     <article class="detail">
       <div class="detail-cover">${coverMarkup(track)}</div>
       <div class="detail-copy"><p class="eyebrow">${text.trackPage}</p>
-        <dl class="track-facts">${facts.map(([label, value]) => `<div><dt>${label}</dt><dd>${value}</dd></div>`).join("")}
-          ${licenseValue || listenAction ? `<div class="license-listen-row">${licenseValue ? `<span class="license-item"><span class="fact-label">${text.license}</span><span>${licenseValue}</span></span>` : ""}${licenseValue && listenAction ? `<span class="metadata-divider" aria-hidden="true"></span>` : ""}${listenAction ? `<span class="listen-item">${listenAction}</span>` : ""}</div>` : ""}
-        </dl>
+        <dl class="track-facts">${facts.map(([label, value]) => `<div><dt>${label}</dt><dd>${value}</dd></div>`).join("")}</dl>
         ${playerMarkup(track)}</div>
     </article>`;
 }
@@ -273,13 +266,13 @@ function showArtist(artist) {
   const links = artist.links.map(link => `<a class="artist-social" href="${link.url}" target="_blank" rel="noopener noreferrer">${platformIcon(link.type)}<span>${link.label}</span></a>`).join("");
   const artistTracks = tracks.filter(track => track.artistId === artist.id).sort((a, b) => a.title.localeCompare(b.title, lang, { sensitivity: "base" }));
   const discography = artistTracks.length ? `<section class="artist-discography"><h2>${text.artistTracks}</h2><ul>${artistTracks.map(track => `<li><a href="?track=${encodeURIComponent(track.id)}&lang=${lang}">${track.title}</a></li>`).join("")}</ul></section>` : "";
-  app.innerHTML = `<a class="back-link" href="?page=artists&lang=${lang}">${text.navArtists}</a><article class="artist-profile"><img class="artist-profile-image" src="${artist.image}" alt="${artist.imageAlt}" draggable="false"><div><p class="eyebrow">${text.artistPage}</p><h1>${artist.name}</h1><p>${artist.bio[lang]}</p><nav class="artist-socials" aria-label="${artist.name}">${links}</nav>${discography}</div></article>`;
+  app.innerHTML = `<a class="back-link" href="?page=artists&lang=${lang}">${text.navArtists}</a><article class="artist-profile"><img class="artist-profile-image" src="${artist.image}" alt="${artist.imageAlt}" draggable="false"><div><p class="eyebrow">${artist.name}</p><p>${artist.bio[lang]}</p><nav class="artist-socials" aria-label="${artist.name}">${links}</nav>${discography}</div></article>`;
 }
 
 function showTextPage(title, body) {
   const contactLinks = title === text.contact ? `<nav class="contact-links" aria-label="${text.contact}"><a href="${text.contactInstagramUrl}" target="_blank" rel="noopener noreferrer"><img src="assets/icon-instagram.svg" alt="" aria-hidden="true" draggable="false">${text.instagram}</a><a href="${text.contactSoundCloudUrl}" target="_blank" rel="noopener noreferrer"><img src="assets/icon-soundcloud.svg" alt="" aria-hidden="true" draggable="false">${text.soundcloud}</a></nav>` : "";
   const licenseLink = title === text.license ? `<p><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">${text.licenseLink}</a></p>` : "";
-  app.innerHTML = `<section class="text-page"><p class="eyebrow">${title}</p><h1>${title}</h1><p>${body}</p>${contactLinks}${licenseLink}</section>`;
+  app.innerHTML = `<section class="text-page"><p class="eyebrow">${title}</p><p>${body}</p>${contactLinks}${licenseLink}</section>`;
 }
 
 if (trackId) {
