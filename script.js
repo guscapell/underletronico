@@ -112,6 +112,8 @@ const copy = {
     contact: "Contact",
     contactText: "For questions, corrections, or music suggestions, contact boinguxa on Instagram or SoundCloud.",
     instagram: "Instagram", soundcloud: "SoundCloud",
+    contactInstagramUrl: "https://www.instagram.com/boinguxa",
+    contactSoundCloudUrl: "https://soundcloud.com/boinguxa",
     licenseText: "The Underletrônico mix by boinguxa is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license. You may share and adapt it noncommercially with attribution, and adaptations must use the same license. All tracks are under compatible licenses.",
     licenseLink: "Read the CC BY-NC-SA 4.0 license ↗",
     tracklist: "Tracklist", tracklistText: "Under construction",
@@ -130,6 +132,8 @@ const copy = {
     contact: "Contato",
     contactText: "Para dúvidas, correções ou sugestões musicais, entre em contato com boinguxa pelo Instagram ou pelo SoundCloud.",
     instagram: "Instagram", soundcloud: "SoundCloud",
+    contactInstagramUrl: "https://www.instagram.com/boinguxa",
+    contactSoundCloudUrl: "https://soundcloud.com/boinguxa",
     licenseText: "O mix Underletrônico de boinguxa está licenciado sob a licença Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional. Você pode compartilhar e adaptar para fins não comerciais com atribuição, e as adaptações devem usar a mesma licença. Todas as faixas utilizadas possuem licenças compatíveis.",
     licenseLink: "Leia a licença CC BY-NC-SA 4.0 ↗",
     tracklist: "Lista de Faixas", tracklistText: "Em construção",
@@ -143,6 +147,13 @@ const text = copy[lang];
 const trackId = params.get("track");
 const page = params.get("page");
 document.documentElement.lang = lang;
+// Discourage casual image saving; images remain accessible through browser tools and network requests.
+document.addEventListener("contextmenu", event => {
+  if (event.target instanceof HTMLImageElement) event.preventDefault();
+}, true);
+document.addEventListener("dragstart", event => {
+  if (event.target instanceof HTMLImageElement) event.preventDefault();
+}, true);
 const titleLabels = lang === "pt"
   ? { artists: "Artistas", artist: "Artista", about: "Sobre", contact: "Contato", license: "Licença", tracklist: "Lista de Faixas", track: "Faixa" }
   : { artists: "Artists", artist: "Artist", about: "About", contact: "Contact", license: "License", tracklist: "Tracklist", track: "Track" };
@@ -262,7 +273,7 @@ function showArtist(artist) {
 }
 
 function showTextPage(title, body) {
-  const contactLinks = title === text.contact ? `<nav class="contact-links" aria-label="${text.contact}"><a href="https://www.instagram.com/boinguxa" target="_blank" rel="noopener noreferrer"><img src="assets/icon-instagram.svg" alt="" aria-hidden="true">${text.instagram}</a><a href="https://soundcloud.com/boinguxa" target="_blank" rel="noopener noreferrer"><img src="assets/icon-soundcloud.svg" alt="" aria-hidden="true">${text.soundcloud}</a></nav>` : "";
+  const contactLinks = title === text.contact ? `<nav class="contact-links" aria-label="${text.contact}"><a href="${text.contactInstagramUrl}" target="_blank" rel="noopener noreferrer"><img src="assets/icon-instagram.svg" alt="" aria-hidden="true" draggable="false">${text.instagram}</a><a href="${text.contactSoundCloudUrl}" target="_blank" rel="noopener noreferrer"><img src="assets/icon-soundcloud.svg" alt="" aria-hidden="true" draggable="false">${text.soundcloud}</a></nav>` : "";
   const licenseLink = title === text.license ? `<p><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">${text.licenseLink}</a></p>` : "";
   app.innerHTML = `<section class="text-page"><p class="eyebrow">Underletrônico</p><h1>${title}</h1><p>${body}</p>${contactLinks}${licenseLink}</section>`;
 }
