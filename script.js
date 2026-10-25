@@ -241,16 +241,13 @@ function playerMarkup(track) {
     return `<div class="track-player soundcloud-player"><iframe title="${track.title}" src="${src}" height="166" loading="lazy" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
   }
   if (track.embed.provider === "bandcamp" && track.embed.albumId && track.embed.trackId) {
-    const src = `https://bandcamp.com/EmbeddedPlayer/album=${encodeURIComponent(track.embed.albumId)}/size=large/bgcol=333333/linkcol=0f91ff/tracklist=false/artwork=small/track=${encodeURIComponent(track.embed.trackId)}/transparent=true/`;
-    return `<div class="track-player bandcamp-player"><iframe title="${track.title}" src="${src}" height="120" loading="lazy" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
+    const src = `https://bandcamp.com/EmbeddedPlayer/album=${encodeURIComponent(track.embed.albumId)}/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/track=${encodeURIComponent(track.embed.trackId)}/transparent=true/`;
+    return `<div class="track-player bandcamp-player bandcamp-player-light"><iframe title="${track.title}" src="${src}" height="120" loading="lazy" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
   }
   if (track.embed.provider === "bandcamp" && track.embed.trackId) {
-    const isNasty = track.id === "fluid-nasty";
-    const playerOptions = isNasty
-      ? "size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/"
-      : "size=large/bgcol=20242a/linkcol=6eb7ff/tracklist=false/artwork=small/transparent=true/";
+    const playerOptions = "size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/";
     const src = `https://bandcamp.com/EmbeddedPlayer/track=${encodeURIComponent(track.embed.trackId)}/${playerOptions}`;
-    return `<div class="track-player bandcamp-player${isNasty ? " bandcamp-player-light" : ""}"><iframe title="${track.title}" src="${src}" height="120" loading="lazy" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
+    return `<div class="track-player bandcamp-player bandcamp-player-light"><iframe title="${track.title}" src="${src}" height="120" loading="lazy" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
   }
   return "";
 }
