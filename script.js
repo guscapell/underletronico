@@ -268,16 +268,16 @@ function platformIcon(type) {
 
 function playerMarkup(track) {
   if (track.embed.provider === "soundcloud") {
-    const options = new URLSearchParams({ url: track.url, color: "#6eb7ff", auto_play: "false", hide_related: "true", show_comments: "false", show_user: "true", show_reposts: "false", visual: "false" });
+    const options = new URLSearchParams({ url: track.url, color: "#6eb7ff", auto_play: "false", hide_related: "true", show_comments: "false", show_user: "true", show_reposts: "false", show_artwork: "false", visual: "false" });
     const src = `https://w.soundcloud.com/player/?${options.toString()}`;
     return `<div class="track-player soundcloud-player"><iframe title="${track.title}" src="${src}" height="166" loading="lazy" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
   }
   if (track.embed.provider === "bandcamp" && track.embed.albumId && track.embed.trackId) {
-    const src = `https://bandcamp.com/EmbeddedPlayer/album=${encodeURIComponent(track.embed.albumId)}/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/track=${encodeURIComponent(track.embed.trackId)}/transparent=true/`;
+    const src = `https://bandcamp.com/EmbeddedPlayer/album=${encodeURIComponent(track.embed.albumId)}/size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=none/track=${encodeURIComponent(track.embed.trackId)}/transparent=true/`;
     return `<div class="track-player bandcamp-player bandcamp-player-light"><iframe title="${track.title}" src="${src}" height="120" loading="lazy" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
   }
   if (track.embed.provider === "bandcamp" && track.embed.trackId) {
-    const playerOptions = "size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/";
+    const playerOptions = "size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=none/transparent=true/";
     const src = `https://bandcamp.com/EmbeddedPlayer/track=${encodeURIComponent(track.embed.trackId)}/${playerOptions}`;
     return `<div class="track-player bandcamp-player bandcamp-player-light"><iframe title="${track.title}" src="${src}" height="120" loading="lazy" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
   }
