@@ -183,9 +183,6 @@ const text = copy[lang];
 const trackId = params.get("track");
 const page = params.get("page");
 document.documentElement.lang = lang;
-const pageLabels = lang === "pt"
-  ? { tracks: "Faixas", artists: "Artistas", tracklist: "Lista de Faixas", about: "Sobre", contact: "Contato", license: "Licença", track: "Faixa", artist: "Artista" }
-  : { tracks: "Tracks", artists: "Artists", tracklist: "Tracklist", about: "About", contact: "Contact", license: "License", track: "Track", artist: "Artist" };
 // Discourage casual image saving; images remain accessible through browser tools and network requests.
 document.addEventListener("contextmenu", event => {
   if (event.target instanceof HTMLImageElement) event.preventDefault();
@@ -193,10 +190,10 @@ document.addEventListener("contextmenu", event => {
 document.addEventListener("dragstart", event => {
   if (event.target instanceof HTMLImageElement) event.preventDefault();
 }, true);
-const titleLabels = lang === "pt"
-  ? { artists: "Artistas", artist: "Artista", about: "Sobre", contact: "Contato", license: "Licença", tracklist: "Lista de Faixas", track: "Faixa" }
-  : { artists: "Artists", artist: "Artist", about: "About", contact: "Contact", license: "License", tracklist: "Tracklist", track: "Track" };
-const pageTitle = trackId ? titleLabels.track : (page ? titleLabels[page] : "");
+const pageLabels = lang === "pt"
+  ? { tracks: text.gallery, artists: text.navArtists, artist: "Artista", about: text.about, contact: text.contact, license: text.license, tracklist: text.tracklist, track: "Faixa" }
+  : { tracks: text.gallery, artists: text.navArtists, artist: "Artist", about: text.about, contact: text.contact, license: text.license, tracklist: text.tracklist, track: "Track" };
+const pageTitle = trackId ? pageLabels.track : (page ? pageLabels[page] : "");
 document.title = pageTitle ? `Underletrônico | ${pageTitle}` : "Underletrônico";
 document.querySelectorAll(".language-switch a").forEach(link => {
   const nextParams = new URLSearchParams(params);
@@ -255,7 +252,7 @@ function playerMarkup(track) {
 function showGallery() {
   const orderedTracks = [...tracks].sort((a, b) => a.title.localeCompare(b.title, lang, { sensitivity: "base" }));
   app.innerHTML = `
-    <p class="eyebrow">${text.gallery} · ${tracks.length} ${text.tracks}</p>
+    <p class="eyebrow">${pageLabels.tracks} · ${tracks.length} ${text.tracks}</p>
     <section class="track-grid" aria-label="${text.gallery}">
       ${orderedTracks.map(track => `
         <a class="track-card" href="?track=${encodeURIComponent(track.id)}&lang=${lang}">
@@ -283,7 +280,7 @@ function showTrack(track) {
     <a class="back-link" href="?lang=${lang}">${text.back}</a>
     <article class="detail">
       <div class="detail-cover">${coverMarkup(track)}</div>
-      <div class="detail-copy"><p class="eyebrow">${text.trackPage}</p>
+      <div class="detail-copy"><p class="eyebrow">${pageLabels.track}</p>
         <dl class="track-facts">${facts.map(([label, value]) => `<div><dt>${label}</dt><dd>${value}</dd></div>`).join("")}</dl>
         ${playerMarkup(track)}</div>
     </article>`;
@@ -292,7 +289,7 @@ function showTrack(track) {
 function showArtists() {
   const orderedArtists = [...artists].sort((a, b) => a.name.localeCompare(b.name, lang, { sensitivity: "base" }));
   app.innerHTML = `
-    <p class="eyebrow">${text.navArtists}</p>
+    <p class="eyebrow">${pageLabels.artists}</p>
     <section class="artist-grid" aria-label="${text.navArtists}">
       ${orderedArtists.map(artist => `<a class="artist-card" href="?page=artist&artist=${artist.id}&lang=${lang}"><img class="artist-card-image" src="${artist.image}" alt="${artist.imageAlt}" loading="lazy" draggable="false"><div class="card-copy"><h2>${artist.name}</h2></div></a>`).join("")}
     </section>`;
@@ -302,7 +299,7 @@ function showArtist(artist) {
   const links = artist.links.map(link => `<a class="artist-social" href="${link.url}" target="_blank" rel="noopener noreferrer">${platformIcon(link.type)}<span>${link.label}</span></a>`).join("");
   const artistTracks = tracks.filter(track => track.artistId === artist.id).sort((a, b) => a.title.localeCompare(b.title, lang, { sensitivity: "base" }));
   const discography = artistTracks.length ? `<section class="artist-discography"><h2>${text.artistTracks}</h2><ul>${artistTracks.map(track => `<li><a href="?track=${encodeURIComponent(track.id)}&lang=${lang}">${track.title}</a></li>`).join("")}</ul></section>` : "";
-  app.innerHTML = `<a class="back-link" href="?page=artists&lang=${lang}">${text.navArtists}</a><article class="artist-profile"><img class="artist-profile-image" src="${artist.image}" alt="${artist.imageAlt}" draggable="false"><div><p class="eyebrow">${artist.name}</p><p>${artist.bio[lang]}</p><nav class="artist-socials" aria-label="${artist.name}">${links}</nav>${discography}</div></article>`;
+  app.innerHTML = `<a class="back-link" href="?page=artists&lang=${lang}">${text.navArtists}</a><article class="artist-profile"><img class="artist-profile-image" src="${artist.image}" alt="${artist.imageAlt}" draggable="false"><div><p class="eyebrow">${pageLabels.artist}</p><p>${artist.bio[lang]}</p><nav class="artist-socials" aria-label="${artist.name}">${links}</nav>${discography}</div></article>`;
 }
 
 function showTextPage(title, body) {
