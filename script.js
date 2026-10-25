@@ -100,7 +100,7 @@ const tracks = [
     license: "CC BY 4.0",
     licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
     url: "https://itsfluidmusic.bandcamp.com/track/nasty",
-    embed: { provider: "bandcamp", trackId: "" },
+    embed: { provider: "bandcamp", trackId: "85115493" },
     cover: "https://f4.bcbits.com/img/a1841539194_0.avif",
     coverAlt: "NASTY cover art, via Bandcamp",
     note: { en: "Release artwork from Bandcamp.", pt: "Arte do lançamento via Bandcamp." },
@@ -210,6 +210,8 @@ document.querySelectorAll(".main-nav a").forEach((link, index) => {
   if (navRoutes[index]) navParams.set("page", navRoutes[index]);
   navParams.set("lang", lang);
   link.href = `?${navParams.toString()}`;
+  const isActive = index === 0 ? (!page || Boolean(trackId)) : page === navRoutes[index];
+  if (isActive) link.setAttribute("aria-current", "page");
 });
 document.querySelector(".wordmark").href = `?lang=${lang}`;
 document.querySelector(".site-footer span:last-child").textContent = text.footerNote;
@@ -243,8 +245,12 @@ function playerMarkup(track) {
     return `<div class="track-player bandcamp-player"><iframe title="${track.title}" src="${src}" height="120" loading="lazy" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
   }
   if (track.embed.provider === "bandcamp" && track.embed.trackId) {
-    const src = `https://bandcamp.com/EmbeddedPlayer/track=${encodeURIComponent(track.embed.trackId)}/size=large/bgcol=20242a/linkcol=6eb7ff/tracklist=false/artwork=small/transparent=true/`;
-    return `<div class="track-player bandcamp-player"><iframe title="${track.title}" src="${src}" height="120" loading="lazy" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
+    const isNasty = track.id === "fluid-nasty";
+    const playerOptions = isNasty
+      ? "size=large/bgcol=ffffff/linkcol=0687f5/tracklist=false/artwork=small/transparent=true/"
+      : "size=large/bgcol=20242a/linkcol=6eb7ff/tracklist=false/artwork=small/transparent=true/";
+    const src = `https://bandcamp.com/EmbeddedPlayer/track=${encodeURIComponent(track.embed.trackId)}/${playerOptions}`;
+    return `<div class="track-player bandcamp-player${isNasty ? " bandcamp-player-light" : ""}"><iframe title="${track.title}" src="${src}" height="120" loading="lazy" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
   }
   return "";
 }
