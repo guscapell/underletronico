@@ -32,6 +32,21 @@ const artists = [
     ]
   },
   {
+    id: "fluid",
+    name: "FLUID",
+    image: "assets/fluid.jpg",
+    imageAlt: "FLUID artist portrait",
+    bio: {
+      en: "FLUID is an electronic music producer from Poland.",
+      pt: "FLUID é um produtor de música eletrônica da Polônia."
+    },
+    links: [
+      { type: "bandcamp", label: "Bandcamp", url: "https://itsfluidmusic.bandcamp.com/music" },
+      { type: "soundcloud", label: "SoundCloud", url: "https://soundcloud.com/itsfluid" },
+      { type: "instagram", label: "Instagram", url: "https://www.instagram.com/fluid.m4a/" }
+    ]
+  },
+  {
     id: "synova",
     name: "Synova",
     image: "assets/synova.jpg",
@@ -78,6 +93,23 @@ const tracks = [
     note: { en: "Release artwork from Bandcamp.", pt: "Arte do lançamento via Bandcamp." }
   },
   {
+    id: "fluid-nasty",
+    title: "NASTY",
+    artistId: "fluid",
+    album: "",
+    license: "CC BY 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
+    url: "https://itsfluidmusic.bandcamp.com/track/nasty",
+    embed: { provider: "bandcamp", trackId: "" },
+    cover: "https://f4.bcbits.com/img/a1841539194_0.avif",
+    coverAlt: "NASTY cover art, via Bandcamp",
+    note: { en: "Release artwork from Bandcamp.", pt: "Arte do lançamento via Bandcamp." },
+    trackNote: {
+      en: "Remix of Nasty by Ayesha Erotica",
+      pt: "Remix de Nasty por Ayesha Erotica"
+    }
+  },
+  {
     id: "rrose-triplicate",
     title: "Triplicate",
     artistId: "rrose",
@@ -105,7 +137,7 @@ const copy = {
     navAbout: "About", navContact: "Contact", navLicense: "License",
     footerNote: "Independent music, shared with care.",
     tracks: "tracks", back: "← All tracks", title: "Title", artist: "Artist", album: "Release",
-    collective: "Collective", license: "License", listen: "Listen / Buy",
+    collective: "Collective", license: "License", listen: "Listen / Buy", note: "Note",
     artistTracks: "Tracks featuring this artist",
     artistPage: "Artist",
     trackPage: "Track",
@@ -127,7 +159,7 @@ const copy = {
     navAbout: "Sobre", navContact: "Contato", navLicense: "Licença",
     footerNote: "Música independente, compartilhada com cuidado.",
     tracks: "faixas", back: "← Todas as faixas", title: "Título", artist: "Artista", album: "Lançamento",
-    collective: "Coletivo", license: "Licença", listen: "Ouvir / Comprar",
+    collective: "Coletivo", license: "Licença", listen: "Ouvir / Comprar", note: "Observação",
     artistTracks: "Faixas com este artista",
     artistPage: "Artista",
     trackPage: "Faixa",
@@ -244,6 +276,7 @@ function showTrack(track) {
     [text.artist, artist ? `<a href="?page=artist&artist=${artist.id}&lang=${lang}">${artist.name}</a>` : ""],
     [text.album, trackLink(track.album, track.albumUrl)],
     [text.collective, trackLink(track.collective, track.collectiveUrl)],
+    [text.note, track.trackNote?.[lang] ?? ""],
     [text.license, track.license ? `<span class="license-listen-value"><a href="${track.licenseUrl}" target="_blank" rel="noopener noreferrer">${track.license}</a>${track.url ? `<span class="metadata-divider" aria-hidden="true"></span><a href="${track.url}" target="_blank" rel="noopener noreferrer">${text.listen}</a>` : ""}</span>` : (track.url ? `<a href="${track.url}" target="_blank" rel="noopener noreferrer">${text.listen}</a>` : "")]
   ].filter(([, value]) => value);
   app.innerHTML = `
