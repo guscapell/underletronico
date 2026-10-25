@@ -173,7 +173,7 @@ const copy = {
     artistPage: "Artist",
     trackPage: "Track",
     about: "About",
-    aboutText: "An underground electronic DJ mix by boinguxa, only with tracks under Creative Commons licenses. Each entry gathers the artist, release details, a link to listen, and the track's license.",
+    aboutText: "An underground electronic DJ mix by boinguxa, including only tracks released under Creative Commons licenses. Each entry gathers the artist, release details, a link to listen, and the track's license.",
     contact: "Contact",
     contactText: "For questions, corrections, or music suggestions, contact boinguxa on Instagram or SoundCloud.",
     instagram: "Instagram", soundcloud: "SoundCloud",
@@ -181,7 +181,7 @@ const copy = {
     contactSoundCloudUrl: "https://soundcloud.com/boinguxa",
     licenseText: "The Underletrônico mix by boinguxa is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license. You may share and adapt it noncommercially with attribution, and adaptations must use the same license. All tracks are under compatible licenses.",
     licenseLink: "Read the CC BY-NC-SA 4.0 license ↗",
-    tracklist: "Tracklist", tracklistText: "Under construction",
+    tracklist: "Tracklist", tracklistText: "Coming soon...",
     notFound: "That track or artist could not be found.", home: "Browse the track archive"
   },
   pt: {
@@ -194,7 +194,7 @@ const copy = {
     artistPage: "Artista",
     trackPage: "Faixa",
     about: "Sobre",
-    aboutText: "Um DJ set de música eletrônica e underground feito por boinguxa, apenas com faixas sob licenças Creative Commons. O site apresenta um arquivo das faixas usadas na curadoria do set. Cada entrada reúne artista, informações do lançamento, link para ouvir e a licença da faixa.",
+    aboutText: "Um DJ set de música eletrônica e underground feito por boinguxa, apenas com faixas disponibilizadas sob licenças Creative Commons. O site apresenta um arquivo das faixas usadas na curadoria do set. Cada entrada reúne artista, informações do lançamento, link para ouvir e a licença da faixa.",
     contact: "Contato",
     contactText: "Para dúvidas, correções ou sugestões musicais, entre em contato com boinguxa pelo Instagram ou pelo SoundCloud.",
     instagram: "Instagram", soundcloud: "SoundCloud",
@@ -202,7 +202,7 @@ const copy = {
     contactSoundCloudUrl: "https://soundcloud.com/boinguxa",
     licenseText: "O mix Underletrônico de boinguxa está licenciado sob a licença Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional. Você pode compartilhar e adaptar para fins não comerciais com atribuição, e as adaptações devem usar a mesma licença. Todas as faixas utilizadas possuem licenças compatíveis.",
     licenseLink: "Leia a licença CC BY-NC-SA 4.0 ↗",
-    tracklist: "Lista de Faixas", tracklistText: "Em construção",
+    tracklist: "Lista de Faixas", tracklistText: "Em breve...",
     notFound: "Não foi possível encontrar essa faixa ou artista.", home: "Explorar o arquivo de faixas"
   }
 };
