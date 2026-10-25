@@ -149,7 +149,7 @@ const copy = {
     contactSoundCloudUrl: "https://soundcloud.com/boinguxa",
     licenseText: "The Underletrônico mix by boinguxa is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license. You may share and adapt it noncommercially with attribution, and adaptations must use the same license. All tracks are under compatible licenses.",
     licenseLink: "Read the CC BY-NC-SA 4.0 license ↗",
-    tracklist: "Tracklist", tracklistText: "Under construction",
+    tracklist: "Tracklist", tracklistText: "Coming soon...",
     notFound: "That track or artist could not be found.", home: "Browse the track archive"
   },
   pt: {
@@ -170,7 +170,7 @@ const copy = {
     contactSoundCloudUrl: "https://soundcloud.com/boinguxa",
     licenseText: "O mix Underletrônico de boinguxa está licenciado sob a licença Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional. Você pode compartilhar e adaptar para fins não comerciais com atribuição, e as adaptações devem usar a mesma licença. Todas as faixas utilizadas possuem licenças compatíveis.",
     licenseLink: "Leia a licença CC BY-NC-SA 4.0 ↗",
-    tracklist: "Lista de Faixas", tracklistText: "Em construção",
+    tracklist: "Lista de Faixas", tracklistText: "Em breve...",
     notFound: "Não foi possível encontrar essa faixa ou artista.", home: "Explorar o arquivo de faixas"
   }
 };
