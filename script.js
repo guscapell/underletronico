@@ -104,7 +104,7 @@ const copy = {
     navGallery: "Tracks", navArtists: "Artists", navTracklist: "Tracklist",
     navAbout: "About", navContact: "Contact", navLicense: "License",
     footerNote: "Independent music, shared with care.",
-    tracks: "tracks", back: "← All tracks", title: "Title", artist: "Artist", album: "Release / Album",
+    tracks: "tracks", back: "← All tracks", title: "Title", artist: "Artist", album: "Release",
     collective: "Collective", license: "License", listen: "Listen / Buy",
     artistTracks: "Tracks featuring this artist",
     about: "About",
@@ -122,7 +122,7 @@ const copy = {
     navGallery: "Faixas", navArtists: "Artistas", navTracklist: "Lista de Faixas",
     navAbout: "Sobre", navContact: "Contato", navLicense: "Licença",
     footerNote: "Música independente, compartilhada com cuidado.",
-    tracks: "faixas", back: "← Todas as faixas", title: "Título", artist: "Artista", album: "Lançamento / Álbum",
+    tracks: "faixas", back: "← Todas as faixas", title: "Título", artist: "Artista", album: "Lançamento",
     collective: "Coletivo", license: "Licença", listen: "Ouvir / Comprar",
     artistTracks: "Faixas com este artista",
     about: "Sobre",
@@ -262,7 +262,7 @@ function showArtist(artist) {
 }
 
 function showTextPage(title, body) {
-  const contactLinks = title === text.contact ? `<nav class="contact-links" aria-label="${text.contact}"><a href="https://www.instagram.com/boinguxa" target="_blank" rel="noopener noreferrer">${text.instagram} ↗</a><a href="https://soundcloud.com/boinguxa" target="_blank" rel="noopener noreferrer">${text.soundcloud} ↗</a></nav>` : "";
+  const contactLinks = title === text.contact ? `<nav class="contact-links" aria-label="${text.contact}"><a href="https://www.instagram.com/boinguxa" target="_blank" rel="noopener noreferrer"><img src="assets/icon-instagram.svg" alt="" aria-hidden="true">${text.instagram}</a><a href="https://soundcloud.com/boinguxa" target="_blank" rel="noopener noreferrer"><img src="assets/icon-soundcloud.svg" alt="" aria-hidden="true">${text.soundcloud}</a></nav>` : "";
   const licenseLink = title === text.license ? `<p><a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank" rel="noopener noreferrer">${text.licenseLink}</a></p>` : "";
   app.innerHTML = `<section class="text-page"><p class="eyebrow">Underletrônico</p><h1>${title}</h1><p>${body}</p>${contactLinks}${licenseLink}</section>`;
 }
