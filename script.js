@@ -52,6 +52,9 @@ const copy = {
     navAbout: "About",
     navContact: "Contact",
     navLicense: "License",
+    navTracklist: "Tracklist",
+    tracklist: "Tracklist",
+    tracklistText: "Under construction",
     footerNote: "Independent music, shared with care.",
     intro: "A living collection of tracks, artists and sounds from the mix. Select a cover to explore a track.",
     tracks: "tracks",
@@ -78,6 +81,9 @@ const copy = {
     navAbout: "Sobre",
     navContact: "Contato",
     navLicense: "Licença",
+    navTracklist: "Lista de Faixas",
+    tracklist: "Lista de Faixas",
+    tracklistText: "Em construção",
     footerNote: "Música independente, compartilhada com cuidado.",
     intro: "Uma coleção viva de faixas, artistas e sons presentes no DJ set 'Underletrônico'. Escolha uma capa para conhecer uma faixa.",
     tracks: "faixas",
@@ -106,8 +112,8 @@ const trackId = params.get("track");
 const page = params.get("page");
 document.documentElement.lang = lang;
 const titleLabels = lang === "pt"
-  ? { about: "Sobre", contact: "Contato", license: "Licença", track: "Faixa" }
-  : { about: "About", contact: "Contact", license: "License", track: "Track" };
+  ? { about: "Sobre", contact: "Contato", license: "Licença", tracklist: "Lista de Faixas", track: "Faixa" }
+  : { about: "About", contact: "Contact", license: "License", tracklist: "Tracklist", track: "Track" };
 const pageTitle = trackId
   ? titleLabels.track
   : page
@@ -122,9 +128,9 @@ document.querySelectorAll(".language-switch a").forEach(link => {
 });
 
 const app = document.querySelector("#app");
-const navRoutes = ["", "about", "contact", "license"];
+const navRoutes = ["", "about", "contact", "license", "tracklist"];
 document.querySelectorAll(".main-nav a").forEach((link, index) => {
-  link.textContent = [text.navGallery, text.navAbout, text.navContact, text.navLicense][index];
+  link.textContent = [text.navGallery, text.navAbout, text.navContact, text.navLicense, text.navTracklist][index];
   const navParams = new URLSearchParams();
   if (navRoutes[index]) navParams.set("page", navRoutes[index]);
   navParams.set("lang", lang);
@@ -226,6 +232,8 @@ if (trackId) {
   showTextPage(text.contact, text.contactText);
 } else if (page === "license") {
   showTextPage(text.license, text.licenseText);
+} else if (page === "tracklist") {
+  showTextPage(text.tracklist, text.tracklistText);
 } else {
   showGallery();
 }
