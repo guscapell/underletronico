@@ -29,7 +29,7 @@ a:hover, a:focus-visible { color: var(--pink); }
 .eyebrow { color: var(--acid); text-transform: uppercase; letter-spacing: .16em; font-size: .85rem; font-weight: bold; }
 h1 { font-size: clamp(2.2rem, 7vw, 5.5rem); line-height: .95; letter-spacing: -.07em; margin: .6rem 0 1rem; max-width: 850px; }
 .intro { color: var(--muted); max-width: 620px; line-height: 1.65; margin-bottom: 3rem; }
-.track-grid, .artist-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 1.15rem; }
+.track-grid, .artist-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 1rem; }
 .track-card, .artist-card { display: block; padding: 0; color: var(--ink); text-decoration: none; border: 1px solid var(--line); background: var(--panel); overflow: hidden; transition: transform .18s ease, border-color .18s ease; }
 .track-card:hover, .track-card:focus-visible, .artist-card:hover, .artist-card:focus-visible { color: var(--ink); transform: translateY(-4px); border-color: var(--acid); }
 .cover, .artist-card-image { display: block; width: 100%; aspect-ratio: 1 / 1; object-fit: cover; overflow: hidden; background: linear-gradient(135deg, #355e86, #5795c9 48%, #b4dcff); user-select: none; -webkit-user-drag: none; }
