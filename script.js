@@ -87,7 +87,12 @@ const tracks = [
     licenseUrl: "https://creativecommons.org/licenses/by-nc/4.0/",
     url: "https://rrose.bandcamp.com/track/triplicate",
     trackUrlLabel: "Bandcamp",
-    embed: { provider: "bandcamp", trackId: "" },
+    embed: {
+      provider: "bandcamp",
+      albumId: "1244851672",
+      trackId: "4155416088",
+      albumLink: "https://eaux.ro/album/2-or-3-drops-of-height-have-nothing-to-do-with-savagery"
+    },
     cover: "https://f4.bcbits.com/img/a1942501855_0.jpg",
     coverAlt: "Triplicate release artwork, via Bandcamp",
     note: { en: "Release artwork from Bandcamp.", pt: "Arte do lançamento via Bandcamp." }
@@ -96,11 +101,10 @@ const tracks = [
 
 const copy = {
   en: {
-    gallery: "Track archive", heading: "Tracks that stay with you.",
+    gallery: "Track archive",
     navGallery: "Tracks", navArtists: "Artists", navTracklist: "Tracklist",
     navAbout: "About", navContact: "Contact", navLicense: "License",
     footerNote: "Independent music, shared with care.",
-    intro: "A living collection of tracks, artists and sounds from the mix. Select a cover to explore a track.",
     tracks: "tracks", back: "← All tracks", artist: "Artist", album: "Release / album",
     collective: "Collective", license: "License", listen: "Listen",
     artistTracks: "Tracks featuring this artist",
@@ -115,11 +119,10 @@ const copy = {
     notFound: "That track or artist could not be found.", home: "Browse the track archive"
   },
   pt: {
-    gallery: "Arquivo de faixas", heading: "Faixas que ficam com você.",
+    gallery: "Arquivo de faixas",
     navGallery: "Faixas", navArtists: "Artistas", navTracklist: "Lista de Faixas",
     navAbout: "Sobre", navContact: "Contato", navLicense: "Licença",
     footerNote: "Música independente, compartilhada com cuidado.",
-    intro: "Uma coleção viva de faixas, artistas e sons presentes no DJ set 'Underletrônico'. Escolha uma capa para conhecer uma faixa.",
     tracks: "faixas", back: "← Todas as faixas", artist: "Artista", album: "Lançamento / álbum",
     collective: "Coletivo", license: "Licença", listen: "Ouvir",
     artistTracks: "Faixas com este artista",
@@ -167,7 +170,7 @@ document.querySelector(".site-footer span:last-child").textContent = text.footer
 
 function coverMarkup(item) {
   const content = item.cover
-    ? `<img src="${item.cover}" alt="${item.coverAlt}" loading="lazy">`
+    ? `<img src="${item.cover}" alt="${item.coverAlt}" loading="lazy" draggable="false">`
     : `<span class="cover-placeholder">${item.title}</span>`;
   return `<div class="cover" aria-label="${item.cover ? item.coverAlt : item.note?.[lang] ?? item.name}">${content}</div>`;
 }
@@ -189,6 +192,10 @@ function playerMarkup(track) {
     const src = `https://w.soundcloud.com/player/?${options.toString()}`;
     return `<div class="track-player"><iframe title="${track.title}" src="${src}" height="166" loading="lazy" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
   }
+  if (track.embed.provider === "bandcamp" && track.embed.albumId && track.embed.trackId) {
+    const src = `https://bandcamp.com/EmbeddedPlayer/album=${encodeURIComponent(track.embed.albumId)}/size=large/bgcol=333333/linkcol=0f91ff/tracklist=false/artwork=small/track=${encodeURIComponent(track.embed.trackId)}/transparent=true/`;
+    return `<div class="track-player"><iframe title="${track.title}" src="${src}" height="120" loading="lazy" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
+  }
   if (track.embed.provider === "bandcamp" && track.embed.trackId) {
     const src = `https://bandcamp.com/EmbeddedPlayer/track=${encodeURIComponent(track.embed.trackId)}/size=large/bgcol=20242a/linkcol=6eb7ff/tracklist=false/artwork=small/transparent=true/`;
     return `<div class="track-player"><iframe title="${track.title}" src="${src}" height="120" loading="lazy" allow="autoplay" referrerpolicy="strict-origin-when-cross-origin"></iframe></div>`;
@@ -200,8 +207,6 @@ function showGallery() {
   const orderedTracks = [...tracks].sort((a, b) => a.title.localeCompare(b.title, lang, { sensitivity: "base" }));
   app.innerHTML = `
     <p class="eyebrow">${text.gallery} · ${tracks.length} ${text.tracks}</p>
-    <h1>${text.heading}</h1>
-    <p class="intro">${text.intro}</p>
     <section class="track-grid" aria-label="${text.gallery}">
       ${orderedTracks.map(track => `
         <a class="track-card" href="?track=${encodeURIComponent(track.id)}&lang=${lang}">
@@ -220,7 +225,7 @@ function showTrack(track) {
   const facts = [
     [text.artist, artist ? `<a href="?page=artist&artist=${artist.id}&lang=${lang}">${artist.name}</a>` : ""],
     [text.album, trackLink(track.album, track.albumUrl)],
-    [text.listen, track.trackUrlLabel ? trackLink(track.trackUrlLabel, track.url) : ""],
+    [text.listen, track.trackUrlLabel ? trackLink(track.trackUrlLabel, track.embed.albumLink || track.url) : ""],
     [text.collective, trackLink(track.collective, track.collectiveUrl)],
     [text.license, track.license ? `<a href="${track.licenseUrl}" target="_blank" rel="noopener noreferrer">${track.license}</a>` : ""]
   ].filter(([, value]) => value);
@@ -239,7 +244,7 @@ function showArtists() {
   app.innerHTML = `
     <p class="eyebrow">${text.navArtists}</p>
     <section class="artist-grid" aria-label="${text.navArtists}">
-      ${orderedArtists.map(artist => `<a class="artist-card" href="?page=artist&artist=${artist.id}&lang=${lang}"><img class="artist-card-image" src="${artist.image}" alt="${artist.imageAlt}" loading="lazy"><div class="card-copy"><h2>${artist.name}</h2></div></a>`).join("")}
+      ${orderedArtists.map(artist => `<a class="artist-card" href="?page=artist&artist=${artist.id}&lang=${lang}"><img class="artist-card-image" src="${artist.image}" alt="${artist.imageAlt}" loading="lazy" draggable="false"><div class="card-copy"><h2>${artist.name}</h2></div></a>`).join("")}
     </section>`;
 }
 
@@ -247,7 +252,7 @@ function showArtist(artist) {
   const links = artist.links.map(link => `<a class="artist-social" href="${link.url}" target="_blank" rel="noopener noreferrer">${platformIcon(link.type)}<span>${link.label}</span></a>`).join("");
   const artistTracks = tracks.filter(track => track.artistId === artist.id).sort((a, b) => a.title.localeCompare(b.title, lang, { sensitivity: "base" }));
   const discography = artistTracks.length ? `<section class="artist-discography"><h2>${text.artistTracks}</h2><ul>${artistTracks.map(track => `<li><a href="?track=${encodeURIComponent(track.id)}&lang=${lang}">${track.title}</a></li>`).join("")}</ul></section>` : "";
-  app.innerHTML = `<a class="back-link" href="?page=artists&lang=${lang}">${text.navArtists}</a><article class="artist-profile"><img class="artist-profile-image" src="${artist.image}" alt="${artist.imageAlt}"><div><p class="eyebrow">${text.navArtists}</p><h1>${artist.name}</h1><p>${artist.bio[lang]}</p><nav class="artist-socials" aria-label="${artist.name}">${links}</nav>${discography}</div></article>`;
+  app.innerHTML = `<a class="back-link" href="?page=artists&lang=${lang}">${text.navArtists}</a><article class="artist-profile"><img class="artist-profile-image" src="${artist.image}" alt="${artist.imageAlt}" draggable="false"><div><p class="eyebrow">${text.navArtists}</p><h1>${artist.name}</h1><p>${artist.bio[lang]}</p><nav class="artist-socials" aria-label="${artist.name}">${links}</nav>${discography}</div></article>`;
 }
 
 function showTextPage(title, body) {
