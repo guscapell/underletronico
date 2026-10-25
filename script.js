@@ -103,7 +103,15 @@ const params = new URLSearchParams(window.location.search);
 const lang = params.get("lang") === "pt" ? "pt" : "en";
 const text = copy[lang];
 document.documentElement.lang = lang;
-document.title = `Underletrônico — ${lang === "pt" ? "faixas" : "tracks"}`;
+const titleLabels = lang === "pt"
+  ? { about: "Sobre", contact: "Contato", license: "Licença", track: "Faixa" }
+  : { about: "About", contact: "Contact", license: "License", track: "Track" };
+const pageTitle = trackId
+  ? titleLabels.track
+  : page
+    ? titleLabels[page]
+    : "";
+document.title = pageTitle ? `Underletrônico | ${pageTitle}` : "Underletrônico";
 document.querySelectorAll(".language-switch a").forEach(link => {
   const nextParams = new URLSearchParams(params);
   nextParams.set("lang", link.getAttribute("lang"));
