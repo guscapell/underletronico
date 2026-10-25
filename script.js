@@ -236,13 +236,13 @@ document.querySelectorAll(".language-switch a").forEach(link => {
 
 const app = document.querySelector("#app");
 const navLinks = [
-  [".nav-group-label", text.navGallery, null],
-  [".nav-submenu a:first-child", text.navArchive, "archive"],
-  [".nav-submenu a:last-child", text.navTracklist, "tracklist"],
-  [".main-nav > a[href*=artists]", text.navArtists, "artists"],
-  [".main-nav > a[href*=about]", text.navAbout, "about"],
-  [".main-nav > a[href*=contact]", text.navContact, "contact"],
-  [".main-nav > a[href*=license]", text.navLicense, "license"]
+  ["#nav-tracks-label", text.navGallery, null],
+  ["#nav-archive", text.navArchive, "archive"],
+  ["#nav-tracklist", text.navTracklist, "tracklist"],
+  [".nav-artists", text.navArtists, "artists"],
+  [".nav-about", text.navAbout, "about"],
+  [".nav-contact", text.navContact, "contact"],
+  [".nav-license", text.navLicense, "license"]
 ];
 navLinks.forEach(([selector, label, route]) => {
   const link = document.querySelector(selector);
