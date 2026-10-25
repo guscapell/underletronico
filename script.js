@@ -212,6 +212,9 @@ document.querySelectorAll(".main-nav a").forEach((link, index) => {
   if (isActive) link.setAttribute("aria-current", "page");
 });
 document.querySelector(".wordmark").href = `?lang=${lang}`;
+document.querySelector(".footer-license").href = lang === "pt"
+  ? "https://creativecommons.org/licenses/by-nc-sa/4.0/deed.pt-br"
+  : "https://creativecommons.org/licenses/by-nc-sa/4.0/";
 
 function coverMarkup(item) {
   const content = item.cover
