@@ -74,6 +74,21 @@ const artists = [
       { type: "website", label: "Website", url: "https://chriszabriskie.com/" },
       { type: "bandcamp", label: "Bandcamp", url: "https://chriszabriskie.bandcamp.com/" }
     ]
+  },
+  {
+    id: "yabiru",
+    name: "Yabiru",
+    image: "assets/yabiru.jpeg",
+    imageAlt: "Yabiru",
+    bio: {
+      en: "Yabiru is a DJ and producer based in São Paulo, Brazil, focused on genres such as house, garage and bass music.",
+      pt: "Yabiru é um DJ e produtor residente de São Paulo, focado em gêneros como house, garage e bass music."
+    },
+    links: [
+      { type: "bandcamp", label: "Bandcamp", url: "https://yabiru.bandcamp.com/" },
+      { type: "soundcloud", label: "SoundCloud", url: "https://soundcloud.com/yabiru" },
+      { type: "instagram", label: "Instagram", url: "https://www.instagram.com/_yabiru/" }
+    ]
   }
 ];
 
@@ -161,6 +176,26 @@ const tracks = [
     cover: "https://f4.bcbits.com/img/a3689933104_0.jpg",
     coverAlt: "Mayor Feedback release artwork, via Bandcamp",
     note: { en: "Release artwork from Bandcamp.", pt: "Arte do lançamento via Bandcamp." }
+  },
+  {
+    id: "yabiru-conversa-de-bebado",
+    title: "Conversa de Bêbado",
+    artistId: "yabiru",
+    album: "Ecos do Caminho EP",
+    albumUrl: "https://casacaos.bandcamp.com/album/ecos-do-caminho-ep",
+    label: "Casa Caos",
+    labelUrl: "https://casacaos.bandcamp.com/",
+    license: "CC BY-SA 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by-sa/4.0/",
+    url: "https://casacaos.bandcamp.com/track/yabiru-conversa-de-b-bado-2",
+    embed: {
+      provider: "bandcamp",
+      albumId: "3444223695",
+      trackId: "1787791081"
+    },
+    cover: "https://f4.bcbits.com/img/a4086419109_0.jpg",
+    coverAlt: "Ecos do Caminho EP cover art, via Bandcamp",
+    note: { en: "Release artwork from Bandcamp.", pt: "Arte do lançamento via Bandcamp." }
   }
 ];
 
@@ -236,7 +271,7 @@ document.querySelectorAll(".language-switch a").forEach(link => {
 
 const app = document.querySelector("#app");
 const navLinks = [
-  [".nav-tracks", text.navGallery, "tracks"],
+  [".nav-tracks", text.navGallery, null],
   [".nav-artists", text.navArtists, "artists"],
   [".nav-about", text.navAbout, "about"],
   [".nav-contact", text.navContact, "contact"],
@@ -249,7 +284,7 @@ navLinks.forEach(([selector, label, route]) => {
   navParams.set("lang", lang);
   link.textContent = label;
   link.href = `?${navParams.toString()}`;
-  const isActive = route === "tracks" ? (!page || page === "tracklist" || page === "artist" || Boolean(trackId)) : route ? page === route : false;
+  const isActive = route === null ? (!page || page === "tracklist" || page === "artist" || Boolean(trackId)) : page === route;
   if (isActive) link.setAttribute("aria-current", "page");
   else link.removeAttribute("aria-current");
 });
