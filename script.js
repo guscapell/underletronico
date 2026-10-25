@@ -60,6 +60,20 @@ const artists = [
       { type: "soundcloud", label: "SoundCloud", url: "https://soundcloud.com/synovamusic" },
       { type: "instagram", label: "Instagram", url: "https://www.instagram.com/synovamusic" }
     ]
+  },
+  {
+    id: "chris-zabriskie",
+    name: "Chris Zabriskie",
+    image: "assets/chris-zabriskie.jpg",
+    imageAlt: "Chris Zabriskie",
+    bio: {
+      en: "Chris Zabriskie is an American composer, musician and filmmaker known for his minimalist electronic soundscapes and instrumental ambient music.",
+      pt: "Chris Zabriskie é um compositor, músico e cineasta americano conhecido por suas paisagens sonoras minimalistas, eletrônicas e de música instrumental ambiente."
+    },
+    links: [
+      { type: "website", label: "Website", url: "https://chriszabriskie.com/" },
+      { type: "bandcamp", label: "Bandcamp", url: "https://chriszabriskie.bandcamp.com/" }
+    ]
   }
 ];
 
@@ -127,6 +141,24 @@ const tracks = [
     cover: "https://f4.bcbits.com/img/a1942501855_0.jpg",
     coverAlt: "Triplicate release artwork, via Bandcamp",
     note: { en: "Release artwork from Bandcamp.", pt: "Arte do lançamento via Bandcamp." }
+  },
+  {
+    id: "chris-zabriskie-i-fuck-you-not",
+    title: "I Fuck You Not",
+    artistId: "chris-zabriskie",
+    album: "Mayor Feedback",
+    albumUrl: "https://chriszabriskie.bandcamp.com/album/mayor-feedback",
+    license: "CC BY 4.0",
+    licenseUrl: "https://creativecommons.org/licenses/by/4.0/",
+    url: "https://chriszabriskie.bandcamp.com/track/i-fuck-you-not",
+    embed: {
+      provider: "bandcamp",
+      albumId: "1884538358",
+      trackId: "2671698159"
+    },
+    cover: "https://f4.bcbits.com/img/a3689933104_0.jpg",
+    coverAlt: "Mayor Feedback release artwork, via Bandcamp",
+    note: { en: "Release artwork from Bandcamp.", pt: "Arte do lançamento via Bandcamp." }
   }
 ];
 
@@ -149,7 +181,7 @@ const copy = {
     contactSoundCloudUrl: "https://soundcloud.com/boinguxa",
     licenseText: "The Underletrônico mix by boinguxa is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license. You may share and adapt it noncommercially with attribution, and adaptations must use the same license. All tracks are under compatible licenses.",
     licenseLink: "Read the CC BY-NC-SA 4.0 license ↗",
-    tracklist: "Tracklist", tracklistText: "Coming soon...",
+    tracklist: "Tracklist", tracklistText: "Under construction",
     notFound: "That track or artist could not be found.", home: "Browse the track archive"
   },
   pt: {
@@ -170,7 +202,7 @@ const copy = {
     contactSoundCloudUrl: "https://soundcloud.com/boinguxa",
     licenseText: "O mix Underletrônico de boinguxa está licenciado sob a licença Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional. Você pode compartilhar e adaptar para fins não comerciais com atribuição, e as adaptações devem usar a mesma licença. Todas as faixas utilizadas possuem licenças compatíveis.",
     licenseLink: "Leia a licença CC BY-NC-SA 4.0 ↗",
-    tracklist: "Lista de Faixas", tracklistText: "Em breve...",
+    tracklist: "Lista de Faixas", tracklistText: "Em construção",
     notFound: "Não foi possível encontrar essa faixa ou artista.", home: "Explorar o arquivo de faixas"
   }
 };
