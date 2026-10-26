@@ -60,6 +60,8 @@ h1 { font-size: clamp(2.2rem, 7vw, 5.5rem); line-height: .95; letter-spacing: -.
 .track-title-value { font-size: 1.15rem; font-weight: 600; }
 .track-facts .license-listen-row { display: flex; grid-column: 1 / -1; align-items: center; flex-wrap: wrap; gap: .8rem; }
 .license-listen-value { display: inline-flex; align-items: center; gap: .8rem; white-space: nowrap; }
+.listen-link { display: inline-flex; align-items: center; gap: .4rem; }
+.listen-link img { width: 18px; height: 18px; object-fit: contain; }
 .metadata-divider { height: 1.2em; border-left: 1px solid var(--line); flex: 0 0 1px; }
 .track-player { width: 100%; margin: 1.5rem 0; overflow: hidden; border: 0; background: transparent; }
 .track-player iframe { display: block; width: 100%; max-width: 100%; margin: 0; border: 0; }

@@ -204,19 +204,19 @@ const copy = {
     gallery: "Track Archive",
     navGallery: "Tracks", navArchive: "Archive", navArtists: "Artists", navTracklist: "Tracklist",
     navAbout: "About", navContact: "Author", navLicense: "License",
-    tracks: "tracks", back: "← All tracks", title: "Title", artist: "Artist", album: "Release",
+    tracks: "tracks", back: "← All tracks", title: "Title", artist: "Artist", album: "Album",
     collective: "Collective", label: "Label", license: "License", listen: "Listen / Buy", note: "Note",
     artistTracks: "Tracks featuring this artist",
     artistPage: "Artist",
     trackPage: "Track",
     about: "About",
-    aboutText: "An underground electronic DJ mix including only tracks released under Creative Commons licenses. Each entry gathers the artist, release details, a link to listen, and the track's license. Non-commercial experiment.",
+    aboutText: "An underground electronic DJ mix including only tracks released under Creative Commons licenses. Each entry gathers the artist, release details, a link to listen, and the track's license.",
     contact: "Author",
     contactText: "Underletrônico is a project by Gustavo Capellari, also known as boinguxa.",
     instagram: "Instagram", soundcloud: "SoundCloud",
     contactInstagramUrl: "https://www.instagram.com/boinguxa",
     contactSoundCloudUrl: "https://soundcloud.com/boinguxa",
-    licenseText: "The Underletrônico mix by boinguxa is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license. You may share and adapt it noncommercially with attribution, and adaptations must use the same license. This license is compatible with all present tracks.",
+    licenseText: "The Underletrônico mix by boinguxa is licensed under the Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International license. You may share and adapt it noncommercially with attribution, and adaptations must use the same license. All tracks are under compatible licenses.",
     licenseLink: "Read the CC BY-NC-SA 4.0 license ↗",
     tracklist: "Tracklist", tracklistText: "Coming soon...",
     notFound: "That track or artist could not be found.", home: "Browse the track archive"
@@ -225,19 +225,19 @@ const copy = {
     gallery: "Arquivo de Faixas",
     navGallery: "Faixas", navArchive: "Arquivo", navArtists: "Artistas", navTracklist: "Lista de Faixas",
     navAbout: "Sobre", navContact: "Autor", navLicense: "Licença",
-    tracks: "faixas", back: "← Todas as faixas", title: "Título", artist: "Artista", album: "Lançamento",
+    tracks: "faixas", back: "← Todas as faixas", title: "Título", artist: "Artista", album: "Álbum",
     collective: "Coletivo", label: "Selo", license: "Licença", listen: "Ouvir / Comprar", note: "Observação",
     artistTracks: "Faixas com este artista",
     artistPage: "Artista",
     trackPage: "Faixa",
     about: "Sobre",
-    aboutText: "Um DJ set de música eletrônica e underground, apenas com faixas disponibilizadas sob licenças Creative Commons. O site apresenta um arquivo das faixas usadas na curadoria do set. Cada entrada reúne artista, informações do lançamento, link para ouvir e a licença da faixa. Experimento sem fins comerciais.",
+    aboutText: "Um DJ set de música eletrônica e underground, apenas com faixas disponibilizadas sob licenças Creative Commons. O site apresenta um arquivo das faixas usadas na curadoria do set. Cada entrada reúne artista, informações do lançamento, link para ouvir e a licença da faixa.",
     contact: "Autor",
     contactText: "Underletrônico é um projeto por Gustavo Capellari, também conhecido como boinguxa.",
     instagram: "Instagram", soundcloud: "SoundCloud",
     contactInstagramUrl: "https://www.instagram.com/boinguxa",
     contactSoundCloudUrl: "https://soundcloud.com/boinguxa",
-    licenseText: "O mix Underletrônico de boinguxa está licenciado sob a licença Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional. Você pode compartilhar e adaptar para fins não comerciais com atribuição, e as adaptações devem usar a mesma licença. Esta licença é compatível com todas as faixas presentes.",
+    licenseText: "O mix Underletrônico de boinguxa está licenciado sob a licença Creative Commons Atribuição-NãoComercial-CompartilhaIgual 4.0 Internacional. Você pode compartilhar e adaptar para fins não comerciais com atribuição, e as adaptações devem usar a mesma licença. Todas as faixas utilizadas possuem licenças compatíveis.",
     licenseLink: "Leia a licença CC BY-NC-SA 4.0 ↗",
     tracklist: "Lista de Faixas", tracklistText: "Em breve...",
     notFound: "Não foi possível encontrar essa faixa ou artista.", home: "Explorar o arquivo de faixas"
@@ -360,6 +360,13 @@ function trackLink(name, url) {
   return url ? `<a href="${url}" target="_blank" rel="noopener noreferrer">${name}</a>` : name;
 }
 
+function listenLinkMarkup(track) {
+  if (!track.url) return "";
+  const provider = track.url.includes("bandcamp.com") ? "bandcamp" : track.url.includes("spotify.com") ? "spotify" : "soundcloud";
+  const icon = platformIcon(provider);
+  return `<a class="listen-link" href="${track.url}" target="_blank" rel="noopener noreferrer">${icon}<span>${text.listen}</span></a>`;
+}
+
 function showTrack(track) {
   const artist = artists.find(entry => entry.id === track.artistId);
   const facts = [
@@ -369,7 +376,7 @@ function showTrack(track) {
     [text.collective, trackLink(track.collective, track.collectiveUrl)],
     [text.label, trackLink(track.label, track.labelUrl)],
     [text.note, track.trackNote?.[lang] ?? ""],
-    [text.license, track.license ? `<span class="license-listen-value"><a href="${localizedLicenseUrl(track.licenseUrl)}" target="_blank" rel="noopener noreferrer">${track.license}</a>${track.url ? `<span class="metadata-divider" aria-hidden="true"></span><a href="${track.url}" target="_blank" rel="noopener noreferrer">${text.listen}</a>` : ""}</span>` : (track.url ? `<a href="${track.url}" target="_blank" rel="noopener noreferrer">${text.listen}</a>` : "")]
+    [text.license, track.license ? `<span class="license-listen-value"><a href="${localizedLicenseUrl(track.licenseUrl)}" target="_blank" rel="noopener noreferrer">${track.license}</a>${track.url ? `<span class="metadata-divider" aria-hidden="true"></span>${listenLinkMarkup(track)}` : ""}</span>` : listenLinkMarkup(track)]
   ].filter(([, value]) => value);
   app.innerHTML = `
     <a class="back-link" href="?lang=${lang}">${text.back}</a>
