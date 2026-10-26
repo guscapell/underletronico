@@ -72,7 +72,9 @@ const artists = [
     },
     links: [
       { type: "website", label: "Website", url: "https://chriszabriskie.com/" },
-      { type: "bandcamp", label: "Bandcamp", url: "https://chriszabriskie.bandcamp.com/" }
+      { type: "bandcamp", label: "Bandcamp", url: "https://chriszabriskie.bandcamp.com/" },
+      { type: "soundcloud", label: "SoundCloud", url: "https://soundcloud.com/chriszabriskie" },
+      { type: "instagram", label: "Instagram", url: "https://www.instagram.com/chriszabriskie/" }
     ]
   },
   {
